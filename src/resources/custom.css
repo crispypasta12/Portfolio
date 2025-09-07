@@ -52,3 +52,12 @@
   --scheme-neutral-600-50: rgba(137,152,159,0.5);
   /*
 }*/
+/* 
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+} */
