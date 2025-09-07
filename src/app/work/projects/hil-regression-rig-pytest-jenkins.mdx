@@ -1,0 +1,27 @@
+---
+title: "HIL Regression Rig with PyTest + Jenkins"
+publishedAt: "2025-02-03"
+summary: "Scalable hardware-in-the-loop automation: fixtures, power analysis, GNSS simulation, and gated releases."
+images:
+  - "/images/projects/project3.jpg"
+  - "/images/projects/project4.jpg"
+  - "/images/projects/project5.jpg"
+team:
+  - name: "Syed Raqueed Bin Alvee"
+    role: "Validation"
+    avatar: "/images/avatar.jpg"
+link: ""
+---
+
+## Overview
+
+Built a **PyTest-based** HIL framework with pluggable fixtures. The rig integrates a Keysight power analyzer
+and an R&S GNSS simulator to validate **power states**, **connectivity**, and **navigation**.
+
+### Highlights
+- PyTest **fixtures** for BLE/Wi-Fi/Cellular
+- Jenkins pipelines with matrices and flaky-test quarantine
+- JSON artifacts + dashboards for triage
+
+### Outcome
+Regression time dropped from days to hours with a stable signal on intermittent defects.

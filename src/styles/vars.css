@@ -1,0 +1,8 @@
+:root{
+  --card-radius: 16px;
+  --img-aspect: 16/11;
+  --ring: 0 0 0 1px rgba(255,255,255,.06) inset;
+
+  --glass: linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.12));
+  --glass-soft: linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,.10));
+}

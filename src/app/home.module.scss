@@ -1,0 +1,193 @@
+/* src/app/home.module.scss */
+
+/* SECTION TITLES */
+.sectionTitleRow {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 16px;
+  justify-items: center;
+
+  h2 { grid-column: 1 / -1; text-align: center; }
+}
+
+/* ---------- Signature Highlights ---------- */
+.highlightsGrid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 16px;
+  width: 100%;
+  overflow: hidden;      /* container guard */
+
+  @media (max-width: 860px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.highlightCard {
+  grid-column: span 6;                 /* 2x2 on desktop, 1x4 on mobile */
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  background: transparent;
+
+  &:hover .img {
+    transform: scale(1.03);
+  }
+
+  :global(img),
+  .img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: var(--img-aspect);
+    object-fit: cover;
+    transition: transform 300ms ease;
+    display: block;
+  }
+
+  .content {
+    display: grid;
+    gap: 8px;
+    padding: 16px;
+  }
+}
+
+/* ---------- Tech Stack ---------- */
+.softDivider {
+  height: 1px;
+  width: 100%;
+  background: rgba(255,255,255,.06);
+  margin: 24px 0;
+  border-radius: 999px;
+  opacity: .8;
+}
+
+/* ---------- Testimonials (marquee) ---------- */
+.testimonialWrap {
+  position: relative;
+  width: 100%;
+  overflow: hidden;        /* no horizontal scrollbars */
+  mask-image: linear-gradient(
+    to right,
+    transparent 0, black 5%,
+    black 95%, transparent 100%
+  );
+}
+
+.testimonialTrack {
+  display: flex;
+  gap: 16px;
+  width: max-content;
+  animation: scrollLeft 28s linear infinite;
+  will-change: transform;
+
+  &:hover { animation-play-state: paused; }
+}
+
+@keyframes scrollLeft {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.testimonialCard {
+  min-width: 520px;
+  max-width: 520px;
+  padding: 20px;
+  border-radius: 20px;
+  background: var(--glass-soft);
+  backdrop-filter: saturate(1.05) blur(8px);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px;
+  align-items: start;
+
+  @media (max-width: 720px){
+    min-width: 360px;
+    max-width: 360px;
+  }
+
+  :global(img){ border-radius: 999px; }
+}
+
+.quote {
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+/* ---------- Hobbies Mosaic ---------- */
+.hobbiesHeader {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  text-align: center;
+  gap: 8px;
+}
+
+/*
+  2 items on the first row, 3 on the second row
+  with different spans and fixed aspect ratios,
+  and no overflow.
+*/
+.hobbiesGrid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0,1fr));
+  gap: 14px;
+  width: 100%;
+  overflow-x: clip; /* IMPORTANT: no horizontal scrollbars */
+}
+
+.hobby {
+  position: relative;
+  display: block;
+  border-radius: 16px;
+  overflow: hidden;
+  background: black; /* avoids white gaps during image load */
+  isolation: isolate;
+
+  /* image */
+  img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transform: scale(1.02);
+    transition: transform 300ms ease, filter 300ms ease;
+  }
+
+  .overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,.0), rgba(0,0,0,.45));
+    opacity: .9;
+    transition: opacity 300ms ease;
+  }
+
+  .label {
+    position: absolute; inset: auto 14px 12px 14px;
+    display: grid; gap: 4px;
+  }
+
+  &:hover img     { transform: scale(1.06); filter: saturate(1.05) contrast(1.05); }
+  &:hover .overlay{ opacity: 1; }
+}
+
+/* layout for 5 tiles (2 + 3) */
+.hobby:nth-child(1){ grid-column: 1 / span 7; aspect-ratio: 21/9; }
+.hobby:nth-child(2){ grid-column: 8 / span 5; aspect-ratio: 21/9; }
+.hobby:nth-child(3){ grid-column: 1 / span 4; aspect-ratio: 4/3;  }
+.hobby:nth-child(4){ grid-column: 5 / span 4; aspect-ratio: 4/3;  }
+.hobby:nth-child(5){ grid-column: 9 / span 4; aspect-ratio: 4/3;  }
+
+@media (max-width: 980px){
+  .hobby:nth-child(1),
+  .hobby:nth-child(2){ grid-column: 1 / -1; aspect-ratio: 21/10; }
+  .hobby:nth-child(3),
+  .hobby:nth-child(4),
+  .hobby:nth-child(5){ grid-column: span 6; }
+}
+
+@media (max-width: 640px){
+  .hobby{ grid-column: 1 / -1 !important; aspect-ratio: 16/10 !important; }
+}

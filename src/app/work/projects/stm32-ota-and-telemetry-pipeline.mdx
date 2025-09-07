@@ -1,0 +1,31 @@
+---
+title: "STM32 OTA & Telemetry Pipeline for Connected Tools"
+publishedAt: "2024-11-12"
+summary: "Production OTA flow and observability from device to cloud; resilient updates, signed URLs, and low-latency telemetry."
+images:
+  - "/images/projects/project6.jpg"
+  - "/images/projects/project7.jpg"
+team:
+  - name: "Syed Raqueed Bin Alvee"
+    role: "Firmware / Platform"
+    avatar: "/images/avatar.jpg"
+link: ""
+---
+
+## Overview
+
+Implemented an end-to-end firmware update and telemetry pipeline for STM32 devices.
+The system supports **signed package downloads**, safe **A/B boot slots**, and field telemetry for
+power, connectivity and error states.
+
+### Highlights
+- **OTA packaging** with manifest + signature validation
+- **A/B boot** with rollback on failed health checks
+- **Telemetry** (ring buffer → MQTT) batched for low-power transport
+- **Watchdog & power manager** for safe states
+
+### Tech
+STM32 HAL/LL · FreeRTOS · MQTT/HTTPS · AWS IoT Core · Athena
+
+### Outcome
+Rolled to a pilot fleet; diagnostics time reduced ~40% via telemetry-driven canarying.

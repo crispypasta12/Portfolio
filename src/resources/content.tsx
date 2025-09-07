@@ -1,4 +1,13 @@
-import { About, Blog, Gallery, Home, Newsletter, Person, Social, Work } from "@/types";
+import {
+  About,
+  Blog,
+  Gallery,
+  Home,
+  Newsletter,
+  Person,
+  Social,
+  Work,
+} from "@/types";
 import { Line, Logo, Row, Text } from "@once-ui-system/core";
 
 const person: Person = {
@@ -20,7 +29,11 @@ const newsletter: Newsletter = {
 
 const social: Social = [
   { name: "GitHub", icon: "github", link: "https://github.com/raqueed" },
-  { name: "LinkedIn", icon: "linkedin", link: "https://www.linkedin.com/in/raqueed-alvee-270b541a5/" },
+  {
+    name: "LinkedIn",
+    icon: "linkedin",
+    link: "https://www.linkedin.com/in/raqueed-alvee-270b541a5/",
+  },
   { name: "Email", icon: "email", link: `mailto:${person.email}` },
 ];
 
@@ -37,33 +50,48 @@ const home: Home = {
       <Row gap="12" vertical="center">
         <strong className="ml-4">Connected Tools</strong>{" "}
         <Line background="brand-alpha-strong" vert height="20" />
-        <Text marginRight="4" onBackground="brand-medium">Featured work</Text>
+        <Text marginRight="4" onBackground="brand-medium">
+          Featured work
+        </Text>
       </Row>
     ),
     href: "/work",
   },
   subline: (
     <>
-      I’m {person.firstName.split(" ")[0]}, a firmware/embedded engineer at Milwaukee Tool Chicago,
-      building production-ready firmware, device↔cloud protocols, and automated testing for connected products.
-      Prior research explored AI-driven security for industrial systems.
+      I’m {person.firstName.split(" ")[0]}, a firmware/embedded engineer at
+      Milwaukee Tool Chicago, building production-ready firmware, device↔cloud
+      protocols, and automated testing for connected products. Prior research
+      explored AI-driven security for industrial systems.
     </>
   ),
 
-  /** New: small highlight cards */
   spotlights: [
-    { icon: "cpu", title: "Embedded Focus", description: <>STM32 · FreeRTOS · Drivers · Power</> },
-    { icon: "bluetooth", title: "Connectivity", description: <>BLE · Cellular · Wi-Fi · MQTT/HTTP</> },
-    { icon: "beaker", title: "Validation", description: <>PyTest · Jenkins · HIL & lab rigs</> },
+    {
+      icon: "cpu",
+      title: "Embedded Focus",
+      description: <>STM32 · FreeRTOS · Drivers · Power</>,
+    },
+    {
+      icon: "bluetooth",
+      title: "Connectivity",
+      description: <>BLE · Cellular · Wi-Fi · MQTT/HTTP</>,
+    },
+    {
+      icon: "beaker",
+      title: "Validation",
+      description: <>PyTest · Jenkins · HIL & lab rigs</>,
+    },
   ],
 
-  /** New: Tech Stack & Capabilities (4) */
   tech: {
     display: true,
     sections: [
       {
         title: "Embedded Firmware",
-        description: <>HAL/LL, interrupt-safe drivers, state machines, OTA flows.</>,
+        description: (
+          <>HAL/LL, interrupt-safe drivers, state machines, OTA flows.</>
+        ),
         tags: [
           { name: "C", icon: "c" },
           { name: "C++", icon: "cplusplus" },
@@ -73,7 +101,11 @@ const home: Home = {
       },
       {
         title: "Connectivity & Protocols",
-        description: <>BLE, Cellular, Wi-Fi, GPS/GNSS; MQTT/HTTP/CoAP; secure provisioning.</>,
+        description: (
+          <>
+            BLE, Cellular, Wi-Fi, GPS/GNSS; MQTT/HTTP/CoAP; secure provisioning.
+          </>
+        ),
         tags: [
           { name: "BLE", icon: "bluetooth" },
           { name: "MQTT", icon: "mqtt" },
@@ -83,7 +115,12 @@ const home: Home = {
       },
       {
         title: "Device↔Cloud & Observability",
-        description: <>AWS IoT Core, signed URLs, fleet registry/monitoring, telemetry pipelines.</>,
+        description: (
+          <>
+            AWS IoT Core, signed URLs, fleet registry/monitoring, telemetry
+            pipelines.
+          </>
+        ),
         tags: [
           { name: "AWS", icon: "aws" },
           { name: "Azure (ADO)", icon: "azure" },
@@ -92,7 +129,9 @@ const home: Home = {
       },
       {
         title: "Test Automation & HIL",
-        description: <>PyTest/GoogleTest, Jenkins CI; power analysis & GNSS simulation.</>,
+        description: (
+          <>PyTest/GoogleTest, Jenkins CI; power analysis & GNSS simulation.</>
+        ),
         tags: [
           { name: "PyTest", icon: "pytest" },
           { name: "GoogleTest", icon: "beaker" },
@@ -103,37 +142,74 @@ const home: Home = {
     ],
   },
 
-  /** New: Work Process (4 steps) */
   process: {
     display: true,
     steps: [
-      { icon: "sparkles", title: "Discover", description: <>Clarify constraints, HW interfaces, and safety states.</> },
-      { icon: "boxes", title: "Prototype", description: <>Spike drivers & comms; validate on HIL rigs.</> },
-      { icon: "rocket", title: "Ship", description: <>Harden paths, OTA, observability; release candidates.</> },
-      { icon: "chartUp", title: "Measure", description: <>Collect telemetry, regressions, and iterate quickly.</> },
+      {
+        icon: "sparkles",
+        title: "Discover",
+        description: (
+          <>Clarify constraints, HW interfaces, and safety states.</>
+        ),
+      },
+      {
+        icon: "boxes",
+        title: "Prototype",
+        description: <>Spike drivers & comms; validate on HIL rigs.</>,
+      },
+      {
+        icon: "rocket",
+        title: "Ship",
+        description: <>Harden paths, OTA, observability; release candidates.</>,
+      },
+      {
+        icon: "chartUp",
+        title: "Measure",
+        description: <>Collect telemetry, regressions, and iterate quickly.</>,
+      },
     ],
   },
 
-  /** New: Publications (links to public records) */
   publications: {
     display: true,
     items: [
       {
-        title: "Device-Centric Firmware Malware Detection for Smart Inverters using Deep Transfer Learning",
-        venue: "IEEE DMC",
-        year: "2022",
-        link: "https://www.researchgate.net/publication/364489901_Device-Centric_Firmware_Malware_Detection_for_Smart_Inverters_using_Deep_Transfer_Learning",
+        title:
+          "On-Body Humidity Sensing Antenna with Polyimide for BAN Applications over 5G Networks",
+        venue: "IEEE IEMTRONICS",
+        year: "2020",
+        link: "https://ieeexplore.ieee.org/document/9216331",
       },
       {
-        title: "Digital Twin of an ANPC Inverter with Integrated Design-For-Trust",
+        title:
+          "Advanced Persistent Threat (APT)-style attack modeling and testbed for power transformer diagnosis system in a substation",
+        venue: "IEEE PES ISGT",
+        year: "2022",
+        link: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=0uFzd80AAAAJ&citation_for_view=0uFzd80AAAAJ:9yKSN-GCB0IC",
+      },
+      {
+        title:
+          "Device-centric firmware malware detection for smart inverters using deep transfer learning",
         venue: "IEEE DMC",
         year: "2022",
-        link: "https://www.proceedings.com/content/065/065764webtoc.pdf",
+        link: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=0uFzd80AAAAJ&citation_for_view=0uFzd80AAAAJ:2osOgNQ5qMEC",
+      },
+      {
+        title:
+          "Ransomware attack modeling and AI-based ransomware detection for digital substations",
+        venue: "IEEE eGRID",
+        year: "2021",
+        link: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=0uFzd80AAAAJ&citation_for_view=0uFzd80AAAAJ:d1gkVwhDpl0C",
+      },
+      {
+        title: "Ransomware security threat modeling for photovoltaic systems",
+        venue: "IEEE eGRID",
+        year: "2021",
+        link: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=0uFzd80AAAAJ&citation_for_view=0uFzd80AAAAJ:u-x6o8ySG0sC",
       },
     ],
   },
 
-  /** Optional: Contact CTA */
   contact: {
     display: true,
     title: <>Have a device that needs secure, reliable firmware?</>,
@@ -141,6 +217,76 @@ const home: Home = {
     ctaHref: "mailto:raqueed@outlook.com",
   },
 };
+
+const homeHighlights = [
+  {
+    title: "Connected Tools Platform",
+    blurb: "Fleet-aware firmware + secure device↔cloud patterns (BLE/Cellular/Wi-Fi, MQTT/HTTPS).",
+    src: "/images/home/highlight-connected-tools.png",
+    alt: "Connected tools platform dashboard and IoT-enabled devices",
+    href: "/work",
+  },
+  {
+    title: "HIL & Validation",
+    blurb: "PyTest + Jenkins + HIL rigs to scale regression for GNSS, power behavior and OTA.",
+    src: "/images/home/highlight-hil-bench.png",
+    alt: "Hardware-in-the-loop test bench with instruments and power analyzer",
+    href: "/work",
+  },
+  {
+    title: "Field Telemetry",
+    blurb: "Signed URLs, structured logs, and Athena queries to observe devices in the wild.",
+    src: "/images/home/highlight-field-telemetry.webp",
+    alt: "Field telemetry heatmap and log visualizations",
+    href: "/work",
+  },
+  {
+    title: "Firmware Craft",
+    blurb: "STM32 drivers, FreeRTOS, power modes and robust watchdogs that ship.",
+    src: "/images/home/highlight-firmware-lab.png",
+    alt: "STM32 dev board on lab bench with probes attached",
+    href: "/work",
+  },
+] as const;
+/** Testimonials (carousel) — use the photos you downloaded */
+const homeTestimonials = [
+  {
+    quote:
+      "Raqueed’s firmware landed cleanly in production—robust drivers, clear state machines, and logs that made fleet issues debuggable.",
+    name: "Srinivas K.",
+    role: "Sr. Platform Architect",
+    avatar: "/images/home/testimonial1.jpg",
+  },
+  {
+    quote:
+      "He built a pragmatic OTA + telemetry pipeline end-to-end. Our field teams finally had real signal instead of guesswork.",
+    name: "Amy L.",
+    role: "Product Manager, Connected Tools",
+    avatar: "/images/home/testimonial2.jpg",
+  },
+  {
+    quote:
+      "Brought discipline to validation with PyTest + HIL rigs. Regression coverage improved—and so did our sleep.",
+    name: "Dave R.",
+    role: "Validation Lead",
+    avatar: "/images/home/testimonial3.jpg",
+  },
+  {
+    quote:
+      "Solid communicator who moves features from bench to fleet with observability in place.",
+    name: "Anita P.",
+    role: "Firmware Manager",
+    avatar: "/images/home/testimonial4.jpg",
+  },
+] as const;
+
+const homeHobbies = [
+  { title: "Music",        caption: "Guitar + lo-fi jams.",        src: "/images/home/hobby-music.jpg" },
+  { title: "Photography",  caption: "Light, lines & details.",     src: "/images/home/hobby-photography.jpg" },
+  { title: "Traveling",    caption: "New cities, new coffee.",     src: "/images/home/hobby-traveling.jpg" },
+  { title: "Gaming",       caption: "Strategy & chill co-ops.",    src: "/images/home/hobby-gaming.jpg" },
+  { title: "Guitar Rig",   caption: "Pedals, tone and practice.",  src: "/images/home/hobby-guitter.jpg" }, // file name as provided
+] as const;
 
 const about: About = {
   path: "/about",
@@ -156,10 +302,12 @@ const about: About = {
     title: "Introduction",
     description: (
       <>
-        {person.firstName} is a Chicago-based firmware engineer focused on embedded systems and secure IoT.
-        He ships resilient device software (STM32, FreeRTOS, BLE/Cellular/Wi-Fi), implements OTA and telemetry pipelines,
-        and builds automated validation (PyTest/Jenkins/HIL). His prior research explored AI-driven threat detection
-        and cyber-physical testbeds for critical power systems.
+        {person.firstName} is a Chicago-based firmware engineer focused on
+        embedded systems and secure IoT. He ships resilient device software
+        (STM32, FreeRTOS, BLE/Cellular/Wi-Fi), implements OTA and telemetry
+        pipelines, and builds automated validation (PyTest/Jenkins/HIL). His
+        prior research explored AI-driven threat detection and cyber-physical
+        testbeds for critical power systems.
       </>
     ),
   },
@@ -173,20 +321,45 @@ const about: About = {
         timeframe: "Jan 2024 – Present",
         role: "Electrical Engineer II · Platform IoT",
         achievements: [
-          <>Built and scaled firmware and automated validation across BLE/Cellular/Wi-Fi, from device comms to secure cloud integration.</>,
-          <>Implemented OTA and device→cloud patterns (MQTT/HTTPS) with credential hygiene and fleet considerations.</>,
-          <>Established PyTest-based regression fixtures; expanded coverage across BLE, Wi-Fi, Cellular, GPS/GNSS.</>,
+          <>
+            Built and scaled firmware and automated validation across
+            BLE/Cellular/Wi-Fi, from device comms to secure cloud integration.
+          </>,
+          <>
+            Implemented OTA and device→cloud patterns (MQTT/HTTPS) with
+            credential hygiene and fleet considerations.
+          </>,
+          <>
+            Established PyTest-based regression fixtures; expanded coverage
+            across BLE, Wi-Fi, Cellular, GPS/GNSS.
+          </>,
         ],
-        images: [{ src: "/images/projects/mke/cover-01.jpg", alt: "Connected tools platform", width: 16, height: 9 }],
+        images: [
+          {
+            src: "/images/featured/milwaukee_tool_featured.webp",
+            alt: "Connected tools platform",
+            width: 16,
+            height: 9,
+          },
+        ],
       },
       {
         company: "Milwaukee Tool",
         timeframe: "Jun 2022 – Dec 2023",
         role: "Electrical Engineer I · Platform IoT",
         achievements: [
-          <>Shipped FW features (BLE advertisement patterns, watchdog, ADC, power-manager state machine, UART) on STM32/Silabs.</>,
-          <>Led debugging, validation/DTP, and introduced unit testing with GoogleTest.</>,
-          <>Prototyped MQTT+GPS on Quectel modules and delivered an AWS-backed Python GUI for field monitoring.</>,
+          <>
+            Shipped FW features (BLE advertisement patterns, watchdog, ADC,
+            power-manager state machine, UART) on STM32/Silabs.
+          </>,
+          <>
+            Led debugging, validation/DTP, and introduced unit testing with
+            GoogleTest.
+          </>,
+          <>
+            Prototyped MQTT+GPS on Quectel modules and delivered an AWS-backed
+            Python GUI for field monitoring.
+          </>,
         ],
         images: [],
       },
@@ -195,8 +368,14 @@ const about: About = {
         timeframe: "May 2021 – Jun 2022",
         role: "Graduate Research Assistant · Cyber-Physical Power & Energy Lab",
         achievements: [
-          <>Cybersecurity + ML research for DOE/SETO and KERI projects (HIL testbeds, APT models, ransomware detection).</>,
-          <>Deep transfer learning for firmware malware detection in smart inverters.</>,
+          <>
+            Cybersecurity + ML research for DOE/SETO and KERI projects (HIL
+            testbeds, APT models, ransomware detection).
+          </>,
+          <>
+            Deep transfer learning for firmware malware detection in smart
+            inverters.
+          </>,
         ],
         images: [],
       },
@@ -204,7 +383,12 @@ const about: About = {
         company: "Texas A&M University – Kingsville",
         timeframe: "Jan 2021 – May 2021",
         role: "Graduate Teaching Assistant · DSP & Speech Processing",
-        achievements: [<>Designed labs and rubrics; supported students with practical DSP implementations.</>],
+        achievements: [
+          <>
+            Designed labs and rubrics; supported students with practical DSP
+            implementations.
+          </>,
+        ],
         images: [],
       },
     ],
@@ -213,7 +397,27 @@ const about: About = {
   studies: {
     display: true,
     title: "Studies",
-    institutions: [{ name: "Texas A&M University – Kingsville", description: <>Graduate studies in Electrical/Computer Engineering.</> }],
+    institutions: [
+      {
+        name: "American International University–Bangladesh (AIUB)",
+        description: (
+          <>
+            Bachelor of Science (B.S.), Electrical & Electronics Engineering,{" "}
+            <strong>2016–2020</strong>. Tools & skills: <em>HFSS</em>,{" "}
+            <em>CST Microwave Studio</em>.
+          </>
+        ),
+      },
+      {
+        name: "Texas A&M University – Kingsville",
+        description: (
+          <>
+            Master of Science (M.S.), Electrical & Electronics Engineering,{" "}
+            <strong>2020–2022</strong>.
+          </>
+        ),
+      },
+    ],
   },
 
   technical: {
@@ -222,7 +426,12 @@ const about: About = {
     skills: [
       {
         title: "Embedded Firmware",
-        description: <>STM32 (HAL/LL), FreeRTOS, drivers (UART/DMA), power management, OTA flows.</>,
+        description: (
+          <>
+            STM32 (HAL/LL), FreeRTOS, drivers (UART/DMA), power management, OTA
+            flows.
+          </>
+        ),
         tags: [
           { name: "C", icon: "c" },
           { name: "C++", icon: "cplusplus" },
@@ -233,7 +442,12 @@ const about: About = {
       },
       {
         title: "Connectivity & Protocols",
-        description: <>BLE, Cellular (Quectel), Wi-Fi; MQTT/HTTP/CoAP; GPS/GNSS integration and logging.</>,
+        description: (
+          <>
+            BLE, Cellular (Quectel), Wi-Fi; MQTT/HTTP/CoAP; GPS/GNSS integration
+            and logging.
+          </>
+        ),
         tags: [
           { name: "BLE", icon: "bluetooth" },
           { name: "MQTT", icon: "mqtt" },
@@ -244,7 +458,12 @@ const about: About = {
       },
       {
         title: "Device↔Cloud & Observability",
-        description: <>AWS IoT Core, Athena queries, signed URLs, telemetry pipelines, fleet registry/monitoring.</>,
+        description: (
+          <>
+            AWS IoT Core, Athena queries, signed URLs, telemetry pipelines,
+            fleet registry/monitoring.
+          </>
+        ),
         tags: [
           { name: "AWS", icon: "aws" },
           { name: "Azure (ADO)", icon: "azure" },
@@ -253,7 +472,12 @@ const about: About = {
       },
       {
         title: "Test Automation & HIL",
-        description: <>PyTest, GoogleTest, Jenkins CI, Azure DevOps; Keysight N6705C power analysis; R&S GNSS simulation.</>,
+        description: (
+          <>
+            PyTest, GoogleTest, Jenkins CI, Azure DevOps; Keysight N6705C power
+            analysis; R&S GNSS simulation.
+          </>
+        ),
         tags: [
           { name: "PyTest", icon: "pytest" },
           { name: "GoogleTest", icon: "beaker" },
@@ -264,7 +488,12 @@ const about: About = {
       },
       {
         title: "Python, MATLAB, ML",
-        description: <>Tooling, data analysis/visualization, model-based prototyping; applied ML for security research.</>,
+        description: (
+          <>
+            Tooling, data analysis/visualization, model-based prototyping;
+            applied ML for security research.
+          </>
+        ),
         tags: [
           { name: "Python", icon: "python" },
           { name: "MATLAB", icon: "mathworks" },
@@ -295,10 +524,34 @@ const gallery: Gallery = {
   title: `Photo gallery – ${person.name}`,
   description: `A photo collection by ${person.name}`,
   images: [
-    { src: "/images/gallery/horizontal-1.jpg", alt: "image", orientation: "horizontal" },
-    { src: "/images/gallery/vertical-1.jpg", alt: "image", orientation: "vertical" },
-    { src: "/images/gallery/horizontal-2.jpg", alt: "image", orientation: "horizontal" },
+    {
+      src: "/images/gallery/horizontal-1.jpg",
+      alt: "image",
+      orientation: "horizontal",
+    },
+    {
+      src: "/images/gallery/vertical-1.jpg",
+      alt: "image",
+      orientation: "vertical",
+    },
+    {
+      src: "/images/gallery/horizontal-2.jpg",
+      alt: "image",
+      orientation: "horizontal",
+    },
   ],
 };
 
-export { person, social, newsletter, home, about, blog, work, gallery };
+export {
+  person,
+  social,
+  newsletter,
+  home,
+  homeHighlights,
+  homeTestimonials,
+  homeHobbies,
+  about,
+  blog,
+  work,
+  gallery,
+};

@@ -17,7 +17,13 @@ import {
   HiOutlineMapPin,
   HiOutlineBeaker,
   HiOutlineWrenchScrewdriver,
-  HiOutlineCloud, // generic cloud (used for Azure)
+  HiOutlineCloud,
+  HiOutlineSparkles,
+  HiOutlineSquares2X2,
+  HiOutlineArrowTrendingUp,
+  HiOutlineUsers,
+  HiOutlineMicrophone,
+  HiOutlineDocumentText,
 } from "react-icons/hi2";
 
 // Phosphor
@@ -29,8 +35,7 @@ import {
   PiImageDuotone,
 } from "react-icons/pi";
 
-// Simple Icons (tech logos)
-// NOTE: Azure + MathWorks are not available in Simple Icons via react-icons.
+// Simple Icons
 import {
   SiJavascript,
   SiTypescript,
@@ -46,7 +51,6 @@ import {
   SiCplusplus,
   SiBluetooth,
   SiMqtt,
-  // AWS name varies by package version; this alias tends to exist:
   SiAmazonwebservices,
   SiJenkins,
   SiPytest,
@@ -86,9 +90,18 @@ export const iconLibrary: Record<string, IconType> = {
   rocket: HiOutlineRocketLaunch,
   cpu: HiOutlineCpuChip,
   pin: HiOutlineMapPin,
+  mapPin: HiOutlineMapPin,           // alias so both work
   beaker: HiOutlineBeaker,
   wrench: HiOutlineWrenchScrewdriver,
-  cloud: HiOutlineCloud,   // <— generic “Azure” stand-in
+  cloud: HiOutlineCloud,
+
+  // *** NEW for your content ***
+  sparkles: HiOutlineSparkles,
+  boxes: HiOutlineSquares2X2,
+  chartUp: HiOutlineArrowTrendingUp,
+  users: HiOutlineUsers,
+  mic: HiOutlineMicrophone,
+  fileText: HiOutlineDocumentText,
 
   // Navigation
   home: PiHouseDuotone,
@@ -125,17 +138,15 @@ export const iconLibrary: Record<string, IconType> = {
   cplusplus: SiCplusplus,
   bluetooth: SiBluetooth,
   mqtt: SiMqtt,
-  aws: SiAmazonwebservices,       // <— use this alias for AWS
+  aws: SiAmazonwebservices,
   jenkins: SiJenkins,
   pytest: SiPytest,
   docker: SiDocker,
-  stmicro: SiStmicroelectronics,  // STM32
+  stmicro: SiStmicroelectronics,
   raspberrypi: SiRaspberrypi,
   arduino: SiArduino,
-
-  // Stand-ins where brand logos are unavailable in SI/react-icons:
-  azure: HiOutlineCloud,          // Microsoft/Azure generic
-  mathworks: HiOutlineBeaker,     // MATLAB/MathWorks generic
+  azure: HiOutlineCloud,       
+  mathworks: HiOutlineBeaker,    
 };
 
 export type IconLibrary = typeof iconLibrary;

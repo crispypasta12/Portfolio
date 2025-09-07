@@ -1,0 +1,26 @@
+---
+title: "Cellular + GPS Field Logger Prototype"
+publishedAt: "2024-06-18"
+summary: "Quectel module streaming GNSS + device metrics with a Python desktop client."
+images:
+  - "/images/projects/project1.jpg"
+  - "/images/projects/project2.jpg"
+team:
+  - name: "Syed Raqueed Bin Alvee"
+    role: "Firmware / Tools"
+    avatar: "/images/avatar.jpg"
+link: ""
+---
+
+## Overview
+
+Rapid prototype using a Quectel cellular module to push **GNSS** and device metrics to the cloud.
+A Python client renders map overlays, supports **signed downloads**, and CSV exports.
+
+### Highlights
+- UART driver + GNSS parser, low-power fixes
+- Buffered MQTT messages with backoff/retry
+- Python GUI for live route & signal-quality overlays
+
+### Outcome
+Improved outdoor validation workflows; easy correlation of **position, RF, and battery** during drive tests.
