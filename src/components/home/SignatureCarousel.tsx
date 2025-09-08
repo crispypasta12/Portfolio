@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Button, Media, Row, Text } from "@once-ui-system/core";
 import { useRouter } from "next/navigation";
@@ -20,18 +20,29 @@ export default function SignatureCarousel({ items }: { items: Highlight[] }) {
   const router = useRouter();
   const allowNav = items.length > 1;
 
-  const go = (dir: number) => allowNav && setIndex((i) => (i + dir + items.length) % items.length);
-  const prev = (index - 1 + items.length) % items.length;
-  const next = (index + 1) % items.length;
+  const go = useCallback(
+    (dir: number) => {
+      if (!allowNav) return;
+      setIndex((i) => (i + dir + items.length) % items.length);
+    },
+    [allowNav, items.length]
+  );
+
+  useEffect(() => {
+    setIndex((i) => (items.length ? i % items.length : 0));
+  }, [items.length]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "ArrowLeft") go(-1);
       if (e.key === "ArrowRight") go(1);
     };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, []);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [go]);
+
+  const prev = (index - 1 + items.length) % items.length;
+  const next = (index + 1) % items.length;
 
   const active = items[index];
   const stop: React.MouseEventHandler<HTMLElement> = (e) => e.stopPropagation();
@@ -40,13 +51,19 @@ export default function SignatureCarousel({ items }: { items: Highlight[] }) {
     <div className={styles.stage}>
       {allowNav && (
         <>
-          <article className={`${styles.peek} ${styles.left}`} onClick={() => go(-1)}>
+          <article
+            className={`${styles.peek} ${styles.left}`}
+            onClick={() => go(-1)}
+          >
             <div className={styles.media}>
               <Media src={items[prev].src} alt={items[prev].alt} radius="l" />
             </div>
             <div className={styles.peekOverlay} />
           </article>
-          <article className={`${styles.peek} ${styles.right}`} onClick={() => go(1)}>
+          <article
+            className={`${styles.peek} ${styles.right}`}
+            onClick={() => go(1)}
+          >
             <div className={styles.media}>
               <Media src={items[next].src} alt={items[next].alt} radius="l" />
             </div>
@@ -90,13 +107,6 @@ export default function SignatureCarousel({ items }: { items: Highlight[] }) {
           </div>
         </motion.article>
       </AnimatePresence>
-
--      {allowNav && (
-        <>
-          <button aria-label="Previous" className={`${styles.nav} ${styles.leftNav}`} onClick={() => go(-1)}>‹</button>
-          <button aria-label="Next" className={`${styles.nav} ${styles.rightNav}`} onClick={() => go(1)}>›</button>
-        </>
-      )}
 
       {allowNav && (
         <div className={styles.dots} role="tablist" aria-label="Slides">

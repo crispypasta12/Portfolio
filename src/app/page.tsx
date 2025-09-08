@@ -254,13 +254,11 @@ export default async function HomePage() {
                   key={`${h.title}-${i}`}
                   aria-label={`${h.title} – open gallery`}
                 >
-                  <img src={h.src} alt={h.title} />
-                  <div className={styles.overlay} /> {/* <- was "overlay" */}
+                  {/* Replaced <img> with Media to satisfy Next ESLint */}
+                  <Media src={h.src} alt={h.title} radius="l" />
+                  <div className={styles.overlay} />
                   <div className={styles.label}>
-                    {" "}
-                    {/* <- was "label" */}
-                    <span className={styles.pill}>{h.title}</span>{" "}
-                    {/* <- was "pill" */}
+                    <span className={styles.pill}>{h.title}</span>
                   </div>
                 </a>
               ))}
@@ -339,11 +337,6 @@ export default async function HomePage() {
                   Firmware prototypes, fleet hardening, test automation—or just
                   say hello.
                 </Text>
-
-                {/* Optional quick link (kept LinkedIn only) */}
-                {/* <Row gap="8" paddingTop="8">
-            <IconButton href={linkedin} icon="linkedin" variant="secondary" />
-          </Row> */}
               </Column>
 
               {/* Mailchimp subscribe form */}

@@ -23,7 +23,7 @@ const person: Person = {
 
 const newsletter: Newsletter = {
   display: false,
-  title: <>Subscribe to {person.firstName}'s Updates</>,
+  title: <>Subscribe to {person.firstName}&apos;s Updates</>,
   description: <>Occasional notes on firmware, IoT, and secure devices</>,
 };
 
@@ -221,34 +221,38 @@ const home: Home = {
 const homeHighlights = [
   {
     title: "Connected Tools Platform",
-    blurb: "Fleet-aware firmware + secure device↔cloud patterns (BLE/Cellular/Wi-Fi, MQTT/HTTPS).",
+    blurb:
+      "Fleet-aware firmware + secure device↔cloud patterns (BLE/Cellular/Wi-Fi, MQTT/HTTPS).",
     src: "/images/home/highlight-connected-tools.png",
     alt: "Connected tools platform dashboard and IoT-enabled devices",
     href: "/work",
   },
   {
     title: "HIL & Validation",
-    blurb: "PyTest + Jenkins + HIL rigs to scale regression for GNSS, power behavior and OTA.",
+    blurb:
+      "PyTest + Jenkins + HIL rigs to scale regression for GNSS, power behavior and OTA.",
     src: "/images/home/highlight-hil-bench.png",
     alt: "Hardware-in-the-loop test bench with instruments and power analyzer",
     href: "/work",
   },
   {
     title: "Field Telemetry",
-    blurb: "Signed URLs, structured logs, and Athena queries to observe devices in the wild.",
+    blurb:
+      "Signed URLs, structured logs, and Athena queries to observe devices in the wild.",
     src: "/images/home/highlight-field-telemetry.webp",
     alt: "Field telemetry heatmap and log visualizations",
     href: "/work",
   },
   {
     title: "Firmware Craft",
-    blurb: "STM32 drivers, FreeRTOS, power modes and robust watchdogs that ship.",
+    blurb:
+      "STM32 drivers, FreeRTOS, power modes and robust watchdogs that ship.",
     src: "/images/home/highlight-firmware-lab.png",
     alt: "STM32 dev board on lab bench with probes attached",
     href: "/work",
   },
 ] as const;
-/** Testimonials (carousel) — use the photos you downloaded */
+
 const homeTestimonials = [
   {
     quote:
@@ -281,11 +285,31 @@ const homeTestimonials = [
 ] as const;
 
 const homeHobbies = [
-  { title: "Music",        caption: "Guitar + lo-fi jams.",        src: "/images/home/hobby-music.jpg" },
-  { title: "Photography",  caption: "Light, lines & details.",     src: "/images/home/hobby-photography.jpg" },
-  { title: "Traveling",    caption: "New cities, new coffee.",     src: "/images/home/hobby-traveling.jpg" },
-  { title: "Gaming",       caption: "Strategy & chill co-ops.",    src: "/images/home/hobby-gaming.jpg" },
-  { title: "Guitar Rig",   caption: "Pedals, tone and practice.",  src: "/images/home/hobby-guitter.jpg" }, // file name as provided
+  {
+    title: "Music",
+    caption: "Guitar + lo-fi jams.",
+    src: "/images/home/hobby-music.jpg",
+  },
+  {
+    title: "Photography",
+    caption: "Light, lines & details.",
+    src: "/images/home/hobby-photography.jpg",
+  },
+  {
+    title: "Traveling",
+    caption: "New cities, new coffee.",
+    src: "/images/home/hobby-traveling.jpg",
+  },
+  {
+    title: "Gaming",
+    caption: "Strategy & chill co-ops.",
+    src: "/images/home/hobby-gaming.jpg",
+  },
+  {
+    title: "Guitar Rig",
+    caption: "Pedals, tone and practice.",
+    src: "/images/home/hobby-guitter.jpg",
+  },
 ] as const;
 
 const about: About = {
@@ -366,7 +390,8 @@ const about: About = {
       {
         company: "Texas A&M University – Kingsville",
         timeframe: "May 2021 – Jun 2022",
-        role: "Graduate Research Assistant · Cyber-Physical Power & Energy Lab",
+        role:
+          "Graduate Research Assistant · Cyber-Physical Power & Energy Lab",
         achievements: [
           <>
             Cybersecurity + ML research for DOE/SETO and KERI projects (HIL

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from "next/og";
 import { baseURL, person } from "@/resources";
 
@@ -70,6 +71,7 @@ export async function GET(request: Request) {
               objectFit: "cover",
               borderRadius: "100%",
             }}
+            alt="Avatar"
           />
           <div
             style={{
