@@ -1,0 +1,18 @@
+---
+title: "Designing a robust OTA pipeline: versions, windows, and safety rails"
+publishedAt: "2024-02-12"
+summary: "From signed URLs to rollout windows and staged reboots—what’s worked for production tools."
+tag: "IoT"
+image: "/images/blogs/blog4.webp"
+---
+
+Firmware delivery is easy. **Recovery** is the hard part.
+
+## Non-negotiables
+
+1. **Two slots + A/B marker** with a _monotonic_ version.
+2. **Rollout windows**: maintenance vs fleet hours.
+3. **Staged reboot**: device reports `READY_TO_REBOOT`, cloud schedules.
+4. **Downgrade gate**: only for rescue builds signed by a separate key.
+
+I use a tiny state machine that logs each leg (`downloaded → verified → staged → rebooted → running`), which pays off in field triage.

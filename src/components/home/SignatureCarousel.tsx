@@ -38,7 +38,6 @@ export default function SignatureCarousel({ items }: { items: Highlight[] }) {
 
   return (
     <div className={styles.stage}>
-      {/* left/right peeks */}
       {allowNav && (
         <>
           <article className={`${styles.peek} ${styles.left}`} onClick={() => go(-1)}>
@@ -56,7 +55,6 @@ export default function SignatureCarousel({ items }: { items: Highlight[] }) {
         </>
       )}
 
-      {/* focused card */}
       <AnimatePresence mode="wait">
         <motion.article
           key={active.title}
@@ -93,15 +91,13 @@ export default function SignatureCarousel({ items }: { items: Highlight[] }) {
         </motion.article>
       </AnimatePresence>
 
-      {/* arrows */}
-      {allowNav && (
+-      {allowNav && (
         <>
           <button aria-label="Previous" className={`${styles.nav} ${styles.leftNav}`} onClick={() => go(-1)}>‹</button>
           <button aria-label="Next" className={`${styles.nav} ${styles.rightNav}`} onClick={() => go(1)}>›</button>
         </>
       )}
 
-      {/* dots */}
       {allowNav && (
         <div className={styles.dots} role="tablist" aria-label="Slides">
           {items.map((_, i) => (

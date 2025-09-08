@@ -15,8 +15,6 @@ import {
 } from "@once-ui-system/core";
 import { Footer, Header, RouteGuard, Providers } from "@/components";
 import { baseURL, effects, fonts, style, dataStyle, home } from "@/resources";
-
-// NEW
 import ScrollProgress from "@/components/ScrollProgress";
 import SmoothScrollProvider from "@/components/SmoothScrollProvider";
 
@@ -47,7 +45,6 @@ export default async function RootLayout({
       )}
     >
       <head>
-        {/* (unchanged) your theme-init script */}
         <script
           id="theme-init"
           dangerouslySetInnerHTML={{
@@ -85,7 +82,6 @@ export default async function RootLayout({
             padding="0"
             horizontal="center"
           >
-            {/* Scroll progress bar */}
             <ScrollProgress />
 
             <RevealFx fill position="absolute">

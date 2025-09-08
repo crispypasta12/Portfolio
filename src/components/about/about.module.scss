@@ -1,25 +1,20 @@
 @use "../breakpoints.scss" as breakpoints;
 
-/* TOC hover nudge */
 .hover {
   transition: var(--transition-micro-medium);
   &:hover { transform: translateX(var(--static-space-4)); }
 }
 
-/* layout */
 .pageRow { align-items: flex-start; }
 
-/* sticky avatar */
 .avatar {
   position: sticky;
   height: fit-content;
   top: var(--static-space-64);
 }
 
-/* tighter section spacing */
-.section { margin-block: clamp(20px, 4vw, 48px); }
+.section { margin-block: clamp(20px, 4vw, 40px); }
 
-/* hero header card */
 .heroCard {
   border-radius: 16px;
   padding: 14px;
@@ -28,20 +23,17 @@
   backdrop-filter: blur(6px) saturate(1.05);
 }
 
-/* generic card (Work / Studies / Skills) */
 .card {
   border-radius: 16px;
-  padding: 14px;
+  padding: clamp(16px, 2.2vw, 20px);
   background: var(--glass-soft);
   box-shadow: var(--ring);
   backdrop-filter: blur(6px) saturate(1.05);
-  transition: box-shadow 160ms ease, transform 160ms ease;
+  transition: transform 140ms ease;
 }
 
-/* media frame polish */
 .mediaFrame { background: var(--glass); box-shadow: var(--ring); }
 
-/* skill tags – no outline, white on hover with dark icons */
 .skillRow { align-items: center; }
 .skillTag {
   display: inline-flex;
@@ -57,31 +49,32 @@
   }
 }
 
-/* ===== Title FX (LEFT-aligned, reveal on scroll) ===== */
+.softDivider {
+  height: 1px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  opacity: 0.8;
+}
+
 .titleFxWrap { --reveal: 0; text-align: left; }
 .titleFx {
   background:
-    linear-gradient(90deg,
-      var(--brand-on-background-strong) 0%,
-      var(--brand-on-background-strong) calc(var(--reveal) * 100%),
+    linear-gradient(
+      90deg,
+      var(--neutral-on-background-strong) 0%,
+      var(--neutral-on-background-strong) calc(var(--reveal) * 100%),
       var(--neutral-on-background-weak) calc(var(--reveal) * 100% + 0.1%),
-      var(--neutral-on-background-weak) 100%);
+      var(--neutral-on-background-weak) 100%
+    );
+  font-size: clamp(1.5rem, 2.8vw, 2.2rem);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   margin: 0;
 }
-.titleFxWrap[data-dir="up"] .titleFx {
-  background:
-    linear-gradient(90deg,
-      var(--neutral-on-background-weak) 0%,
-      var(--neutral-on-background-weak) calc((1 - var(--reveal)) * 100%),
-      var(--brand-on-background-strong) calc((1 - var(--reveal)) * 100% + 0.1%),
-      var(--brand-on-background-strong) 100%);
-}
 .subtle { margin-top: 6px; opacity: .75; text-align: left; }
 
-/* ===== Cursor-follow glow on cards ===== */
 .glow { position: relative; }
 .glow::before {
   content: "";
@@ -89,19 +82,17 @@
   inset: -1px;
   border-radius: inherit;
   pointer-events: none;
-  /* spotlight follows CSS vars --mx / --my (set by HoverGlow) */
   background:
-    radial-gradient(180px 180px at var(--mx, -100px) var(--my, -100px),
-      rgba(0, 170, 255, .20),
-      rgba(0, 170, 255, .08) 25%,
-      transparent 60%);
+    radial-gradient(120px 120px at var(--mx, -100px) var(--my, -100px),
+      rgba(0, 170, 255, .10),
+      rgba(0, 170, 255, .05) 35%,
+      transparent 65%);
   opacity: 0;
   transition: opacity 120ms ease;
 }
-.glow:hover::before { opacity: 1; }
-.glow:hover { box-shadow: 0 18px 50px rgba(0, 170, 255, .16), var(--ring); transform: translateY(-1px); }
+.glow:hover::before { opacity: .9; }
+.glow:hover { transform: translateY(-2px); }
 
-/* responsive tweaks */
 @media (max-width: breakpoints.$s) {
   .avatar { top: auto; }
   .textAlign { text-align: center; }

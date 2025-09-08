@@ -1,0 +1,24 @@
+---
+title: "Practical STM32 Power Modes: shipping low-power without surprises"
+publishedAt: "2024-01-18"
+summary: "HAL/LL tips for STOP/STOP2/Standby, wake sources, and what actually breaks in the real world."
+tag: "Firmware"
+image: "/images/blogs/blog5.webp"
+---
+
+Power budgets look great in a spreadsheet—until you enable timers, DMA and links.  
+Here’s the playbook I use on STM32 to _actually_ hit targets:
+
+## Checklist
+
+- **Clocks:** freeze what you can; know which peripherals keep the HSI running.
+- **RTC vs LPTIM:** choose your wake source early; it shapes the whole design.
+- **DMA + STOP2:** test the exact IPs you’ll use; some combos don’t resume cleanly.
+- **Brown-out:** set a real threshold and log *why* you woke up.
+
+```c
+// Minimal STOP2 enter/exit with LL
+LL_PWR_SetPowerMode(LL_PWR_MODE_STOP2);
+LL_LPM_EnableDeepSleep();
+__WFI(); // wake on RTC/LPTIM/EXTI
+SystemClock_Config(); // reinit clocks after STOP2

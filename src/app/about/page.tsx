@@ -29,6 +29,15 @@ export async function generateMetadata() {
   });
 }
 
+function Anchor({ id }: { id: string }) {
+  return (
+    <div
+      id={id}
+      style={{ scrollMarginTop: "96px" }}
+    />
+  );
+}
+
 export default function About() {
   const structure = [
     { title: about.intro.title, display: about.intro.display, items: [] },
@@ -50,7 +59,7 @@ export default function About() {
   ];
 
   return (
-    <Column maxWidth="m">
+    <Column maxWidth="m" paddingTop="48">
       <Schema
         as="webPage"
         baseURL={baseURL}
@@ -78,7 +87,12 @@ export default function About() {
         </Column>
       )}
 
-      <Row fillWidth s={{ direction: "column" }} horizontal="center" className={styles.pageRow}>
+      <Row
+        fillWidth
+        s={{ direction: "column" }}
+        horizontal="center"
+        className={styles.pageRow}
+      >
         {/* Sticky avatar rail */}
         {about.avatar.display && (
           <Column
@@ -113,19 +127,22 @@ export default function About() {
 
         {/* Main column */}
         <Column className={styles.blockAlign} flex={9} maxWidth={40}>
-          {/* Intro “card” */}
+          {/* Intro */}
+          <Anchor id={about.intro.title} />
           <Column
-            id={about.intro.title}
             fillWidth
             minHeight="160"
             vertical="center"
             marginBottom="24"
-            className={styles.heroCard}
           >
             <Heading className={styles.textAlign} variant="display-strong-xl">
               {person.name}
             </Heading>
-            <Text className={styles.textAlign} variant="display-default-xs" onBackground="neutral-weak">
+            <Text
+              className={styles.textAlign}
+              variant="display-default-xs"
+              onBackground="neutral-weak"
+            >
               {person.role}
             </Text>
 
@@ -155,37 +172,64 @@ export default function About() {
                           />
                         </Row>
                         <Row hide s={{ hide: false }}>
-                          <IconButton size="l" href={item.link} icon={item.icon} variant="secondary" />
+                          <IconButton
+                            size="l"
+                            href={item.link}
+                            icon={item.icon}
+                            variant="secondary"
+                          />
                         </Row>
                       </React.Fragment>
-                    ),
+                    )
                 )}
               </Row>
             )}
           </Column>
 
           {about.intro.display && (
-            <Column textVariant="body-default-l" fillWidth gap="m" marginBottom="l" className={styles.section}>
+            <Column
+              textVariant="body-default-l"
+              fillWidth
+              gap="m"
+              marginBottom="l"
+              className={styles.section}
+            >
               {about.intro.description}
             </Column>
           )}
+
+          <div className={styles.softDivider} />
 
           {/* Work */}
           {about.work.display && (
             <>
               <div className={styles.section}>
-                <AboutTitleFx title={about.work.title} subtitle={<>Where I’ve shipped and learned</>} />
+                {/* Anchor BEFORE the title effect so ToC finds it */}
+                <Anchor id={about.work.title} />
+                <AboutTitleFx
+                  title={about.work.title}
+                  subtitle={<>Where I’ve shipped and learned</>}
+                />
               </div>
 
               <Column fillWidth gap="m" marginBottom="32">
                 {about.work.experiences.map((experience, index) => (
-                  <HoverGlow key={`${experience.company}-${experience.role}-${index}`} className={`${styles.card} ${styles.glow}`}>
+                  <HoverGlow
+                    key={`${experience.company}-${experience.role}-${index}`}
+                    className={`${styles.card} ${styles.glow}`}
+                  >
                     <Column fillWidth gap="m">
                       <Row fillWidth horizontal="between" vertical="end">
-                        <Text id={experience.company} variant="heading-strong-l">
+                        <Text
+                          id={experience.company}
+                          variant="heading-strong-l"
+                        >
                           {experience.company}
                         </Text>
-                        <Text variant="heading-default-xs" onBackground="neutral-weak">
+                        <Text
+                          variant="heading-default-xs"
+                          onBackground="neutral-weak"
+                        >
                           {experience.timeframe}
                         </Text>
                       </Row>
@@ -195,15 +239,27 @@ export default function About() {
                       </Text>
 
                       <Column as="ul" gap="12">
-                        {experience.achievements.map((achievement: React.ReactNode, i: number) => (
-                          <Text as="li" variant="body-default-m" key={`${experience.company}-${i}`}>
-                            {achievement}
-                          </Text>
-                        ))}
+                        {experience.achievements.map(
+                          (achievement: React.ReactNode, i: number) => (
+                            <Text
+                              as="li"
+                              variant="body-default-m"
+                              key={`${experience.company}-${i}`}
+                            >
+                              {achievement}
+                            </Text>
+                          )
+                        )}
                       </Column>
 
                       {(experience.images?.length ?? 0) > 0 && (
-                        <Row fillWidth paddingTop="m" paddingLeft="40" gap="12" wrap>
+                        <Row
+                          fillWidth
+                          paddingTop="m"
+                          paddingLeft="40"
+                          gap="12"
+                          wrap
+                        >
                           {experience.images!.map((image, i) => (
                             <Row
                               key={i}
@@ -213,7 +269,13 @@ export default function About() {
                               height={image.height}
                               className={styles.mediaFrame}
                             >
-                              <Media enlarge radius="m" sizes={String(image.width)} alt={image.alt} src={image.src} />
+                              <Media
+                                enlarge
+                                radius="m"
+                                sizes={String(image.width)}
+                                alt={image.alt}
+                                src={image.src}
+                              />
                             </Row>
                           ))}
                         </Row>
@@ -225,21 +287,33 @@ export default function About() {
             </>
           )}
 
+          <div className={styles.softDivider} />
+
           {/* Studies */}
           {about.studies.display && (
             <>
               <div className={styles.section}>
-                <AboutTitleFx title={about.studies.title} subtitle={<>Formal education</>} />
+                <Anchor id={about.studies.title} />
+                <AboutTitleFx
+                  title={about.studies.title}
+                  subtitle={<>Formal education</>}
+                />
               </div>
 
               <Column fillWidth gap="m" marginBottom="32">
                 {about.studies.institutions.map((institution, i) => (
-                  <HoverGlow key={`${institution.name}-${i}`} className={`${styles.card} ${styles.glow}`}>
+                  <HoverGlow
+                    key={`${institution.name}-${i}`}
+                    className={`${styles.card} ${styles.glow}`}
+                  >
                     <Column fillWidth gap="8">
                       <Text id={institution.name} variant="heading-strong-l">
                         {institution.name}
                       </Text>
-                      <Text variant="heading-default-xs" onBackground="neutral-weak">
+                      <Text
+                        variant="heading-default-xs"
+                        onBackground="neutral-weak"
+                      >
                         {institution.description}
                       </Text>
                     </Column>
@@ -249,16 +323,27 @@ export default function About() {
             </>
           )}
 
+          <div className={styles.softDivider} />
+
           {/* Technical skills */}
           {about.technical.display && (
             <>
               <div className={styles.section}>
-                <AboutTitleFx title={about.technical.title} subtitle={<>Tools, stacks & patterns</>} />
+                <Anchor id={about.technical.title} />
+                <AboutTitleFx
+                  title={about.technical.title}
+                  subtitle={<>Tools, stacks & patterns</>}
+                />
               </div>
 
               <Column fillWidth gap="m">
                 {about.technical.skills.map((skill, i) => (
-                  <Column key={`${skill.title}-${i}`} fillWidth gap="8" className={styles.card}>
+                  <Column
+                    key={`${skill.title}-${i}`}
+                    fillWidth
+                    gap="8"
+                    className={styles.card}
+                  >
                     <Text id={skill.title} variant="heading-strong-l">
                       {skill.title}
                     </Text>
@@ -267,9 +352,17 @@ export default function About() {
                     </Text>
 
                     {!!(skill.tags?.length ?? 0) && (
-                      <Row wrap gap="8" paddingTop="8" className={styles.skillRow}>
+                      <Row
+                        wrap
+                        gap="8"
+                        paddingTop="8"
+                        className={styles.skillRow}
+                      >
                         {skill.tags!.map((tag, ti) => (
-                          <span className={styles.skillTag} key={`${skill.title}-${ti}`}>
+                          <span
+                            className={styles.skillTag}
+                            key={`${skill.title}-${ti}`}
+                          >
                             <Tag size="l" prefixIcon={tag.icon}>
                               {tag.name}
                             </Tag>
@@ -289,7 +382,13 @@ export default function About() {
                             height={image.height}
                             className={styles.mediaFrame}
                           >
-                            <Media enlarge radius="m" sizes={String(image.width)} alt={image.alt} src={image.src} />
+                            <Media
+                              enlarge
+                              radius="m"
+                              sizes={String(image.width)}
+                              alt={image.alt}
+                              src={image.src}
+                            />
                           </Row>
                         ))}
                       </Row>

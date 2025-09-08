@@ -7,26 +7,33 @@ import styles from "./section-title-fx.module.scss";
 export default function SectionTitleFx({
   title,
   subtitle,
-}: { title: React.ReactNode; subtitle?: React.ReactNode }) {
+  align = "center",
+}: {
+  title: React.ReactNode;
+  subtitle?: React.ReactNode;
+  align?: "left" | "center";
+}) {
   const ref = useRef<HTMLDivElement>(null);
 
-  // Full viewport journey: when the block enters from below until it fully leaves above
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
 
-  // 0..1 -> inset(0 <right> 0 0)  (right = 100%..0%)
   const right = useTransform(scrollYProgress, [0, 1], ["100%", "0%"]);
   const clip = useTransform(right, (r) => `inset(0 ${r} 0 0)`);
 
   return (
-    <div ref={ref} className={styles.wrap}>
-      <h2 className={styles.title} aria-label={typeof title === "string" ? title : undefined}>
-        {/* base (dark) text: always visible */}
+    <div
+      ref={ref}
+      className={`${styles.wrap} ${align === "left" ? styles.left : ""}`}
+    >
+      <h2
+        className={styles.title}
+        aria-label={typeof title === "string" ? title : undefined}
+      >
         <span className={styles.base}>{title}</span>
 
-        {/* revealed (white) text: clipped by scroll */}
         <motion.span
           aria-hidden
           className={styles.reveal}
@@ -36,7 +43,11 @@ export default function SectionTitleFx({
         </motion.span>
       </h2>
 
-      {subtitle ? <p className={styles.sub}>{subtitle}</p> : null}
+      {subtitle ? (
+        <p className={`${styles.sub} ${align === "left" ? styles.subLeft : ""}`}>
+          {subtitle}
+        </p>
+      ) : null}
     </div>
   );
 }

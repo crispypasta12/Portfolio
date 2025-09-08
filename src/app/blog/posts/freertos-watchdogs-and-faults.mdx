@@ -1,0 +1,13 @@
+---
+title: "FreeRTOS, watchdogs, and post-mortems that actually help"
+publishedAt: "2024-07-09"
+summary: "A simple fault record + reboot reason makes field issues tractable."
+tag: "Firmware"
+image: "/images/blogs/blog1.webp"
+---
+
+- Kick the WDG from a low priority **health task**.
+- Persist a tiny **fault record** (panic reason, task name, PC) before reset.
+- On boot, publish the **reboot reason** once—then clear it.
+
+It’s amazing how quickly field mysteries shrink with three extra keys in your logs.

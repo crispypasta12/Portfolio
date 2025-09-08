@@ -6,7 +6,6 @@
   padding: 6px 0 22px;
 }
 
-/* keep images consistent + smaller */
 .media {
   aspect-ratio: 16 / 10;
   max-height: 360px;
@@ -32,7 +31,6 @@
 }
 .content { padding: 16px; display: grid; gap: 8px; }
 
-/* left/right peeks */
 .peek {
   position: absolute; top: 0;
   width: min(520px, 55vw);

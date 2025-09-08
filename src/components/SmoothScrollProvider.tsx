@@ -2,8 +2,6 @@
 
 import { useEffect, ReactNode } from "react";
 import Lenis from "lenis";
-// (optional but recommended once in your app)
-// import "lenis/dist/lenis.css";
 
 export default function SmoothScrollProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
@@ -11,10 +9,9 @@ export default function SmoothScrollProvider({ children }: { children: ReactNode
       duration: 1.1,
       easing: (t: number) => Math.min(1, 1 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      syncTouch: false,         // ✅ replaces old smoothTouch
+      syncTouch: false,         
       gestureOrientation: "vertical",
       autoResize: true,
-      // autoRaf: true,          // Or use this and remove the RAF loop below
     });
 
     let rafId = 0;

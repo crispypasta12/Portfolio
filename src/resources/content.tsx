@@ -403,8 +403,7 @@ const about: About = {
         description: (
           <>
             Bachelor of Science (B.S.), Electrical & Electronics Engineering,{" "}
-            <strong>2016–2020</strong>. Tools & skills: <em>HFSS</em>,{" "}
-            <em>CST Microwave Studio</em>.
+            <strong>2016–2020</strong>.
           </>
         ),
       },
@@ -530,7 +529,22 @@ const gallery: Gallery = {
       orientation: "horizontal",
     },
     {
+      src: "/images/gallery/vertical-4.jpg",
+      alt: "image",
+      orientation: "vertical",
+    },
+    {
+      src: "/images/gallery/horizontal-3.jpg",
+      alt: "image",
+      orientation: "horizontal",
+    },
+    {
       src: "/images/gallery/vertical-1.jpg",
+      alt: "image",
+      orientation: "vertical",
+    },
+    {
+      src: "/images/gallery/vertical-2.jpg",
       alt: "image",
       orientation: "vertical",
     },
@@ -538,6 +552,16 @@ const gallery: Gallery = {
       src: "/images/gallery/horizontal-2.jpg",
       alt: "image",
       orientation: "horizontal",
+    },
+    {
+      src: "/images/gallery/horizontal-4.jpg",
+      alt: "image",
+      orientation: "horizontal",
+    },
+    {
+      src: "/images/gallery/vertical-3.jpg",
+      alt: "image",
+      orientation: "vertical",
     },
   ],
 };
