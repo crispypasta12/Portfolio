@@ -1,4 +1,4 @@
-import { Flex, Meta, Schema } from "@once-ui-system/core";
+import { Flex, Meta, Schema, RevealFx } from "@once-ui-system/core";
 import GalleryView from "@/components/gallery/GalleryView";
 import { baseURL, gallery, person } from "@/resources";
 
@@ -28,7 +28,9 @@ export default function Gallery() {
           image: `${baseURL}${person.avatar}`,
         }}
       />
-      <GalleryView />
+      <RevealFx translateY="8" fillWidth horizontal="center">
+        <GalleryView />
+      </RevealFx>
     </Flex>
   );
 }
