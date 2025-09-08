@@ -14,6 +14,8 @@ import {
 } from "@once-ui-system/core";
 import { baseURL, about, person, social } from "@/resources";
 import TableOfContents from "@/components/about/TableOfContents";
+import AboutTitleFx from "@/components/about/AboutTitleFx";
+import HoverGlow from "@/components/about/HoverGlow";
 import styles from "@/components/about/about.module.scss";
 import React from "react";
 
@@ -21,7 +23,7 @@ export async function generateMetadata() {
   return Meta.generate({
     title: about.title,
     description: about.description,
-    baseURL: baseURL,
+    baseURL,
     image: `/api/og/generate?title=${encodeURIComponent(about.title)}`,
     path: about.path,
   });
@@ -29,27 +31,24 @@ export async function generateMetadata() {
 
 export default function About() {
   const structure = [
-    {
-      title: about.intro.title,
-      display: about.intro.display,
-      items: [],
-    },
+    { title: about.intro.title, display: about.intro.display, items: [] },
     {
       title: about.work.title,
       display: about.work.display,
-      items: about.work.experiences.map((experience) => experience.company),
+      items: about.work.experiences.map((e) => e.company),
     },
     {
       title: about.studies.title,
       display: about.studies.display,
-      items: about.studies.institutions.map((institution) => institution.name),
+      items: about.studies.institutions.map((i) => i.name),
     },
     {
       title: about.technical.title,
       display: about.technical.display,
-      items: about.technical.skills.map((skill) => skill.title),
+      items: about.technical.skills.map((s) => s.title),
     },
   ];
+
   return (
     <Column maxWidth="m">
       <Schema
@@ -65,6 +64,7 @@ export default function About() {
           image: `${baseURL}${person.avatar}`,
         }}
       />
+
       {about.tableOfContent.display && (
         <Column
           left="0"
@@ -77,7 +77,9 @@ export default function About() {
           <TableOfContents structure={structure} about={about} />
         </Column>
       )}
-      <Row fillWidth s={{ direction: "column" }} horizontal="center">
+
+      <Row fillWidth s={{ direction: "column" }} horizontal="center" className={styles.pageRow}>
+        {/* Sticky avatar rail */}
         {about.avatar.display && (
           <Column
             className={styles.avatar}
@@ -96,10 +98,11 @@ export default function About() {
               <Icon onBackground="accent-weak" name="globe" />
               {person.location}
             </Row>
-            {person.languages && person.languages.length > 0 && (
+
+            {!!(person.languages?.length ?? 0) && (
               <Row wrap gap="8">
-                {person.languages.map((language, index) => (
-                  <Tag key={index} size="l">
+                {person.languages!.map((language, i) => (
+                  <Tag key={i} size="l">
                     {language}
                   </Tag>
                 ))}
@@ -107,50 +110,26 @@ export default function About() {
             )}
           </Column>
         )}
+
+        {/* Main column */}
         <Column className={styles.blockAlign} flex={9} maxWidth={40}>
+          {/* Intro “card” */}
           <Column
             id={about.intro.title}
             fillWidth
             minHeight="160"
             vertical="center"
-            marginBottom="32"
+            marginBottom="24"
+            className={styles.heroCard}
           >
-            {about.calendar.display && (
-              <Row
-                fitWidth
-                border="brand-alpha-medium"
-                background="brand-alpha-weak"
-                radius="full"
-                padding="4"
-                gap="8"
-                marginBottom="m"
-                vertical="center"
-                className={styles.blockAlign}
-                style={{
-                  backdropFilter: "blur(var(--static-space-1))",
-                }}
-              >
-                <Icon paddingLeft="12" name="calendar" onBackground="brand-weak" />
-                <Row paddingX="8">Schedule a call</Row>
-                <IconButton
-                  href={about.calendar.link}
-                  data-border="rounded"
-                  variant="secondary"
-                  icon="chevronRight"
-                />
-              </Row>
-            )}
             <Heading className={styles.textAlign} variant="display-strong-xl">
               {person.name}
             </Heading>
-            <Text
-              className={styles.textAlign}
-              variant="display-default-xs"
-              onBackground="neutral-weak"
-            >
+            <Text className={styles.textAlign} variant="display-default-xs" onBackground="neutral-weak">
               {person.role}
             </Text>
-            {social.length > 0 && (
+
+            {!!(social?.length ?? 0) && (
               <Row
                 className={styles.blockAlign}
                 paddingTop="20"
@@ -167,7 +146,6 @@ export default function About() {
                       <React.Fragment key={item.name}>
                         <Row s={{ hide: true }}>
                           <Button
-                            key={item.name}
                             href={item.link}
                             prefixIcon={item.icon}
                             label={item.name}
@@ -177,13 +155,7 @@ export default function About() {
                           />
                         </Row>
                         <Row hide s={{ hide: false }}>
-                          <IconButton
-                            size="l"
-                            key={`${item.name}-icon`}
-                            href={item.link}
-                            icon={item.icon}
-                            variant="secondary"
-                          />
+                          <IconButton size="l" href={item.link} icon={item.icon} variant="secondary" />
                         </Row>
                       </React.Fragment>
                     ),
@@ -193,135 +165,131 @@ export default function About() {
           </Column>
 
           {about.intro.display && (
-            <Column textVariant="body-default-l" fillWidth gap="m" marginBottom="xl">
+            <Column textVariant="body-default-l" fillWidth gap="m" marginBottom="l" className={styles.section}>
               {about.intro.description}
             </Column>
           )}
 
+          {/* Work */}
           {about.work.display && (
             <>
-              <Heading as="h2" id={about.work.title} variant="display-strong-s" marginBottom="m">
-                {about.work.title}
-              </Heading>
-              <Column fillWidth gap="l" marginBottom="40">
+              <div className={styles.section}>
+                <AboutTitleFx title={about.work.title} subtitle={<>Where I’ve shipped and learned</>} />
+              </div>
+
+              <Column fillWidth gap="m" marginBottom="32">
                 {about.work.experiences.map((experience, index) => (
-                  <Column key={`${experience.company}-${experience.role}-${index}`} fillWidth>
-                    <Row fillWidth horizontal="between" vertical="end" marginBottom="4">
-                      <Text id={experience.company} variant="heading-strong-l">
-                        {experience.company}
+                  <HoverGlow key={`${experience.company}-${experience.role}-${index}`} className={`${styles.card} ${styles.glow}`}>
+                    <Column fillWidth gap="m">
+                      <Row fillWidth horizontal="between" vertical="end">
+                        <Text id={experience.company} variant="heading-strong-l">
+                          {experience.company}
+                        </Text>
+                        <Text variant="heading-default-xs" onBackground="neutral-weak">
+                          {experience.timeframe}
+                        </Text>
+                      </Row>
+
+                      <Text variant="body-default-s" onBackground="brand-weak">
+                        {experience.role}
                       </Text>
-                      <Text variant="heading-default-xs" onBackground="neutral-weak">
-                        {experience.timeframe}
-                      </Text>
-                    </Row>
-                    <Text variant="body-default-s" onBackground="brand-weak" marginBottom="m">
-                      {experience.role}
-                    </Text>
-                    <Column as="ul" gap="16">
-                      {experience.achievements.map(
-                        (achievement: React.ReactNode, index: number) => (
-                          <Text
-                            as="li"
-                            variant="body-default-m"
-                            key={`${experience.company}-${index}`}
-                          >
+
+                      <Column as="ul" gap="12">
+                        {experience.achievements.map((achievement: React.ReactNode, i: number) => (
+                          <Text as="li" variant="body-default-m" key={`${experience.company}-${i}`}>
                             {achievement}
                           </Text>
-                        ),
+                        ))}
+                      </Column>
+
+                      {(experience.images?.length ?? 0) > 0 && (
+                        <Row fillWidth paddingTop="m" paddingLeft="40" gap="12" wrap>
+                          {experience.images!.map((image, i) => (
+                            <Row
+                              key={i}
+                              border="neutral-medium"
+                              radius="m"
+                              minWidth={image.width}
+                              height={image.height}
+                              className={styles.mediaFrame}
+                            >
+                              <Media enlarge radius="m" sizes={String(image.width)} alt={image.alt} src={image.src} />
+                            </Row>
+                          ))}
+                        </Row>
                       )}
                     </Column>
-                    {experience.images && experience.images.length > 0 && (
-                      <Row fillWidth paddingTop="m" paddingLeft="40" gap="12" wrap>
-                        {experience.images.map((image, index) => (
-                          <Row
-                            key={index}
-                            border="neutral-medium"
-                            radius="m"
-                            minWidth={image.width}
-                            height={image.height}
-                          >
-                            <Media
-                              enlarge
-                              radius="m"
-                              sizes={image.width.toString()}
-                              alt={image.alt}
-                              src={image.src}
-                            />
-                          </Row>
-                        ))}
-                      </Row>
-                    )}
-                  </Column>
+                  </HoverGlow>
                 ))}
               </Column>
             </>
           )}
 
+          {/* Studies */}
           {about.studies.display && (
             <>
-              <Heading as="h2" id={about.studies.title} variant="display-strong-s" marginBottom="m">
-                {about.studies.title}
-              </Heading>
-              <Column fillWidth gap="l" marginBottom="40">
-                {about.studies.institutions.map((institution, index) => (
-                  <Column key={`${institution.name}-${index}`} fillWidth gap="4">
-                    <Text id={institution.name} variant="heading-strong-l">
-                      {institution.name}
-                    </Text>
-                    <Text variant="heading-default-xs" onBackground="neutral-weak">
-                      {institution.description}
-                    </Text>
-                  </Column>
+              <div className={styles.section}>
+                <AboutTitleFx title={about.studies.title} subtitle={<>Formal education</>} />
+              </div>
+
+              <Column fillWidth gap="m" marginBottom="32">
+                {about.studies.institutions.map((institution, i) => (
+                  <HoverGlow key={`${institution.name}-${i}`} className={`${styles.card} ${styles.glow}`}>
+                    <Column fillWidth gap="8">
+                      <Text id={institution.name} variant="heading-strong-l">
+                        {institution.name}
+                      </Text>
+                      <Text variant="heading-default-xs" onBackground="neutral-weak">
+                        {institution.description}
+                      </Text>
+                    </Column>
+                  </HoverGlow>
                 ))}
               </Column>
             </>
           )}
 
+          {/* Technical skills */}
           {about.technical.display && (
             <>
-              <Heading
-                as="h2"
-                id={about.technical.title}
-                variant="display-strong-s"
-                marginBottom="40"
-              >
-                {about.technical.title}
-              </Heading>
-              <Column fillWidth gap="l">
-                {about.technical.skills.map((skill, index) => (
-                  <Column key={`${skill}-${index}`} fillWidth gap="4">
+              <div className={styles.section}>
+                <AboutTitleFx title={about.technical.title} subtitle={<>Tools, stacks & patterns</>} />
+              </div>
+
+              <Column fillWidth gap="m">
+                {about.technical.skills.map((skill, i) => (
+                  <Column key={`${skill.title}-${i}`} fillWidth gap="8" className={styles.card}>
                     <Text id={skill.title} variant="heading-strong-l">
                       {skill.title}
                     </Text>
                     <Text variant="body-default-m" onBackground="neutral-weak">
                       {skill.description}
                     </Text>
-                    {skill.tags && skill.tags.length > 0 && (
-                      <Row wrap gap="8" paddingTop="8">
-                        {skill.tags.map((tag, tagIndex) => (
-                          <Tag key={`${skill.title}-${tagIndex}`} size="l" prefixIcon={tag.icon}>
-                            {tag.name}
-                          </Tag>
+
+                    {!!(skill.tags?.length ?? 0) && (
+                      <Row wrap gap="8" paddingTop="8" className={styles.skillRow}>
+                        {skill.tags!.map((tag, ti) => (
+                          <span className={styles.skillTag} key={`${skill.title}-${ti}`}>
+                            <Tag size="l" prefixIcon={tag.icon}>
+                              {tag.name}
+                            </Tag>
+                          </span>
                         ))}
                       </Row>
                     )}
-                    {skill.images && skill.images.length > 0 && (
+
+                    {(skill.images?.length ?? 0) > 0 && (
                       <Row fillWidth paddingTop="m" gap="12" wrap>
-                        {skill.images.map((image, index) => (
+                        {skill.images!.map((image, ii) => (
                           <Row
-                            key={index}
+                            key={ii}
                             border="neutral-medium"
                             radius="m"
                             minWidth={image.width}
                             height={image.height}
+                            className={styles.mediaFrame}
                           >
-                            <Media
-                              enlarge
-                              radius="m"
-                              sizes={image.width.toString()}
-                              alt={image.alt}
-                              src={image.src}
-                            />
+                            <Media enlarge radius="m" sizes={String(image.width)} alt={image.alt} src={image.src} />
                           </Row>
                         ))}
                       </Row>

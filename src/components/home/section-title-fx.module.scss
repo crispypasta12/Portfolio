@@ -1,0 +1,29 @@
+.wrap {
+  text-align: center;
+}
+
+.title {
+  position: relative;
+  display: inline-block; /* so reveal width matches the text */
+  line-height: 1.1;
+  font-size: clamp(1rem, 6vw, 2.5rem);
+  margin: 0;
+}
+
+.base {
+  /* darker default text */
+  color: var(--neutral-on-background-weak);
+}
+
+.reveal {
+  position: absolute;
+  inset: 0;
+  color: #fff; /* bright “revealed” color */
+  will-change: clip-path;
+  pointer-events: none; /* overlay shouldn’t catch clicks */
+}
+
+.sub {
+  margin-top: 6px;
+  opacity: 0.75;
+}

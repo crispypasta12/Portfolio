@@ -14,7 +14,7 @@ import {
 import { home } from "./index";
 
 // IMPORTANT: Replace with your own domain address - it's used for SEO in meta tags and schema
-const baseURL: string = "https://demo.magic-portfolio.com";
+const baseURL: string = "https://demo.personal-portfolio.com";
 
 const routes: RoutesConfig = {
   "/": true,
@@ -186,8 +186,8 @@ const mailchimp: MailchimpConfig = {
 
 // default schema data
 const schema: SchemaConfig = {
-  logo: "/images/logo.png",        // add your logo path
-  type: "Person",                  // better fit for a personal site
+  logo: "/images/logo.png", // add your logo path
+  type: "Person", // better fit for a personal site
   name: "Syed Raqueed Bin Alvee",
   description: home.description,
   email: "raqueed@outlook.com",

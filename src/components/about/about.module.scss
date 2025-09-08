@@ -1,29 +1,109 @@
 @use "../breakpoints.scss" as breakpoints;
 
+/* TOC hover nudge */
 .hover {
-    transition: var(--transition-micro-medium);
-
-    &:hover {
-        transform: translateX(var(--static-space-4));
-    }
+  transition: var(--transition-micro-medium);
+  &:hover { transform: translateX(var(--static-space-4)); }
 }
 
+/* layout */
+.pageRow { align-items: flex-start; }
+
+/* sticky avatar */
 .avatar {
-    position: sticky;
-    height: fit-content;
-    top: var(--static-space-64);
+  position: sticky;
+  height: fit-content;
+  top: var(--static-space-64);
 }
 
+/* tighter section spacing */
+.section { margin-block: clamp(20px, 4vw, 48px); }
+
+/* hero header card */
+.heroCard {
+  border-radius: 16px;
+  padding: 14px;
+  background: var(--glass-soft);
+  box-shadow: var(--ring);
+  backdrop-filter: blur(6px) saturate(1.05);
+}
+
+/* generic card (Work / Studies / Skills) */
+.card {
+  border-radius: 16px;
+  padding: 14px;
+  background: var(--glass-soft);
+  box-shadow: var(--ring);
+  backdrop-filter: blur(6px) saturate(1.05);
+  transition: box-shadow 160ms ease, transform 160ms ease;
+}
+
+/* media frame polish */
+.mediaFrame { background: var(--glass); box-shadow: var(--ring); }
+
+/* skill tags – no outline, white on hover with dark icons */
+.skillRow { align-items: center; }
+.skillTag {
+  display: inline-flex;
+  & > * {
+    transition: transform 160ms ease, filter 160ms ease, background 160ms ease, color 160ms ease;
+    outline: none;
+  }
+  &:hover > * {
+    background: #fff !important;
+    color: #000 !important;
+    filter: invert(0) grayscale(0);
+    transform: translateY(-1px);
+  }
+}
+
+/* ===== Title FX (LEFT-aligned, reveal on scroll) ===== */
+.titleFxWrap { --reveal: 0; text-align: left; }
+.titleFx {
+  background:
+    linear-gradient(90deg,
+      var(--brand-on-background-strong) 0%,
+      var(--brand-on-background-strong) calc(var(--reveal) * 100%),
+      var(--neutral-on-background-weak) calc(var(--reveal) * 100% + 0.1%),
+      var(--neutral-on-background-weak) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin: 0;
+}
+.titleFxWrap[data-dir="up"] .titleFx {
+  background:
+    linear-gradient(90deg,
+      var(--neutral-on-background-weak) 0%,
+      var(--neutral-on-background-weak) calc((1 - var(--reveal)) * 100%),
+      var(--brand-on-background-strong) calc((1 - var(--reveal)) * 100% + 0.1%),
+      var(--brand-on-background-strong) 100%);
+}
+.subtle { margin-top: 6px; opacity: .75; text-align: left; }
+
+/* ===== Cursor-follow glow on cards ===== */
+.glow { position: relative; }
+.glow::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  /* spotlight follows CSS vars --mx / --my (set by HoverGlow) */
+  background:
+    radial-gradient(180px 180px at var(--mx, -100px) var(--my, -100px),
+      rgba(0, 170, 255, .20),
+      rgba(0, 170, 255, .08) 25%,
+      transparent 60%);
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+.glow:hover::before { opacity: 1; }
+.glow:hover { box-shadow: 0 18px 50px rgba(0, 170, 255, .16), var(--ring); transform: translateY(-1px); }
+
+/* responsive tweaks */
 @media (max-width: breakpoints.$s) {
-    .avatar {
-        top: auto;
-    }
-
-    .textAlign {
-        text-align: center;
-    }
-
-    .blockAlign {
-        align-self: center;
-    }
+  .avatar { top: auto; }
+  .textAlign { text-align: center; }
+  .blockAlign { align-self: center; }
 }
