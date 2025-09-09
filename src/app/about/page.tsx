@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Button,
   Column,
   Heading,
@@ -102,7 +101,15 @@ export default function About() {
               flex={3}
               horizontal="center"
             >
-              <Avatar src={person.avatar} size="xl" />
+              {/* Square avatar with rounded corners */}
+              <Media
+                src={person.avatar}
+                alt={person.name}
+                aspectRatio="1 / 1"
+                radius="l"
+                className={styles.avatarImg}
+              />
+
               <Row gap="8" vertical="center">
                 <Icon onBackground="accent-weak" name="globe" />
                 {person.location}
@@ -215,12 +222,24 @@ export default function About() {
                     >
                       <Column fillWidth gap="m">
                         <Row fillWidth horizontal="between" vertical="end">
-                          <Text
-                            id={experience.company}
-                            variant="heading-strong-l"
-                          >
-                            {experience.company}
-                          </Text>
+                          <Row gap="12" vertical="center">
+                            {experience.logo && (
+                              <Media
+                                src={experience.logo}
+                                alt={`${experience.company} logo`}
+                                aspectRatio="17 / 8"
+                                radius="none"
+                                className={styles.orgLogo}
+                              />
+                            )}
+                            <Text
+                              id={experience.company}
+                              variant="heading-strong-l"
+                            >
+                              {experience.company}
+                            </Text>
+                          </Row>
+
                           <Text
                             variant="heading-default-xs"
                             onBackground="neutral-weak"
@@ -305,15 +324,40 @@ export default function About() {
                       className={`${styles.card} ${styles.glow}`}
                     >
                       <Column fillWidth gap="8">
-                        <Text id={institution.name} variant="heading-strong-l">
-                          {institution.name}
-                        </Text>
+                        <Row gap="12" vertical="center">
+                          {institution.logo && (
+                            <Media
+                              src={institution.logo}
+                              alt={`${institution.name} logo`}
+                              aspectRatio="1 / 1"
+                              radius="none"
+                              className={styles.orgLogo}
+                            />
+                          )}
+                          <Text
+                            id={institution.name}
+                            variant="heading-strong-l"
+                          >
+                            {institution.name}
+                          </Text>
+                        </Row>
+
                         <Text
                           variant="heading-default-xs"
                           onBackground="neutral-weak"
                         >
                           {institution.description}
                         </Text>
+
+                        {(institution as any).thesis && (
+                          <Text
+                            variant="body-default-s"
+                            onBackground="brand-weak"
+                            marginTop="8"
+                          >
+                            {(institution as any).thesis}
+                          </Text>
+                        )}
                       </Column>
                     </HoverGlow>
                   ))}
@@ -336,65 +380,65 @@ export default function About() {
 
                 <Column fillWidth gap="m">
                   {about.technical.skills.map((skill, i) => (
-                    <Column
+                    <HoverGlow
                       key={`${skill.title}-${i}`}
-                      fillWidth
-                      gap="8"
-                      className={styles.card}
+                      className={`${styles.card} ${styles.glow}`}
                     >
-                      <Text id={skill.title} variant="heading-strong-l">
-                        {skill.title}
-                      </Text>
-                      <Text
-                        variant="body-default-m"
-                        onBackground="neutral-weak"
-                      >
-                        {skill.description}
-                      </Text>
-
-                      {!!(skill.tags?.length ?? 0) && (
-                        <Row
-                          wrap
-                          gap="8"
-                          paddingTop="8"
-                          className={styles.skillRow}
+                      <Column fillWidth gap="8">
+                        <Text id={skill.title} variant="heading-strong-l">
+                          {skill.title}
+                        </Text>
+                        <Text
+                          variant="body-default-m"
+                          onBackground="neutral-weak"
                         >
-                          {skill.tags!.map((tag, ti) => (
-                            <span
-                              className={styles.skillTag}
-                              key={`${skill.title}-${ti}`}
-                            >
-                              <Tag size="l" prefixIcon={tag.icon}>
-                                {tag.name}
-                              </Tag>
-                            </span>
-                          ))}
-                        </Row>
-                      )}
+                          {skill.description}
+                        </Text>
 
-                      {(skill.images?.length ?? 0) > 0 && (
-                        <Row fillWidth paddingTop="m" gap="12" wrap>
-                          {skill.images!.map((image, ii) => (
-                            <Row
-                              key={ii}
-                              border="neutral-medium"
-                              radius="m"
-                              minWidth={image.width}
-                              height={image.height}
-                              className={styles.mediaFrame}
-                            >
-                              <Media
-                                enlarge
+                        {!!(skill.tags?.length ?? 0) && (
+                          <Row
+                            wrap
+                            gap="8"
+                            paddingTop="8"
+                            className={styles.skillRow}
+                          >
+                            {skill.tags!.map((tag, ti) => (
+                              <span
+                                className={styles.skillTag}
+                                key={`${skill.title}-${ti}`}
+                              >
+                                <Tag size="l" prefixIcon={tag.icon}>
+                                  {tag.name}
+                                </Tag>
+                              </span>
+                            ))}
+                          </Row>
+                        )}
+
+                        {(skill.images?.length ?? 0) > 0 && (
+                          <Row fillWidth paddingTop="m" gap="12" wrap>
+                            {skill.images!.map((image, ii) => (
+                              <Row
+                                key={ii}
+                                border="neutral-medium"
                                 radius="m"
-                                sizes={String(image.width)}
-                                alt={image.alt}
-                                src={image.src}
-                              />
-                            </Row>
-                          ))}
-                        </Row>
-                      )}
-                    </Column>
+                                minWidth={image.width}
+                                height={image.height}
+                                className={styles.mediaFrame}
+                              >
+                                <Media
+                                  enlarge
+                                  radius="m"
+                                  sizes={String(image.width)}
+                                  alt={image.alt}
+                                  src={image.src}
+                                />
+                              </Row>
+                            ))}
+                          </Row>
+                        )}
+                      </Column>
+                    </HoverGlow>
                   ))}
                 </Column>
               </>

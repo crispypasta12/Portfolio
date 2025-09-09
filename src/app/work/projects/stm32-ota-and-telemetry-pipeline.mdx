@@ -8,7 +8,7 @@ images:
 team:
   - name: "Syed Raqueed Bin Alvee"
     role: "Firmware / Platform"
-    avatar: "/images/avatar.jpg"
+    avatar: "/images/avatar.webp"
 link: ""
 ---
 
@@ -19,13 +19,16 @@ The system supports **signed package downloads**, safe **A/B boot slots**, and f
 power, connectivity and error states.
 
 ### Highlights
+
 - **OTA packaging** with manifest + signature validation
 - **A/B boot** with rollback on failed health checks
 - **Telemetry** (ring buffer → MQTT) batched for low-power transport
 - **Watchdog & power manager** for safe states
 
 ### Tech
+
 STM32 HAL/LL · FreeRTOS · MQTT/HTTPS · AWS IoT Core · Athena
 
 ### Outcome
+
 Rolled to a pilot fleet; diagnostics time reduced ~40% via telemetry-driven canarying.

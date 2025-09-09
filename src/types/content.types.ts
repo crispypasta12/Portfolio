@@ -83,13 +83,22 @@ export interface Home extends BasePageConfig {
   /** Work Process (4 steps) */
   process?: {
     display: boolean;
-    steps: Array<{ title: string; description: React.ReactNode; icon?: IconName }>;
+    steps: Array<{
+      title: string;
+      description: React.ReactNode;
+      icon?: IconName;
+    }>;
   };
 
   /** Publications & Funding */
   publications?: {
     display: boolean;
-    items: Array<{ title: string; venue?: string; year?: string; link?: string }>;
+    items: Array<{
+      title: string;
+      venue?: string;
+      year?: string;
+      link?: string;
+    }>;
   };
 
   /** Testimonials (optional; keep off if empty) */
@@ -125,14 +134,28 @@ export interface About extends BasePageConfig {
       company: string;
       timeframe: string;
       role: string;
+      /** NEW: optional logo path (e.g., '/images/about/work_milwaukee.webp') */
+      logo?: string;
       achievements: React.ReactNode[];
-      images?: Array<{ src: string; alt: string; width: number; height: number }>;
+      images?: Array<{
+        src: string;
+        alt: string;
+        width: number;
+        height: number;
+      }>;
     }>;
   };
   studies: {
     display: boolean;
     title: string;
-    institutions: Array<{ name: string; description: React.ReactNode }>;
+    institutions: Array<{
+      name: string;
+      /** NEW: optional logo path */
+      logo?: string;
+      /** NEW: optional thesis line */
+      thesis?: string;
+      description: React.ReactNode;
+    }>;
   };
   technical: {
     display: boolean;
@@ -141,7 +164,12 @@ export interface About extends BasePageConfig {
       title: string;
       description?: React.ReactNode;
       tags?: Array<{ name: string; icon?: string }>;
-      images?: Array<{ src: string; alt: string; width: number; height: number }>;
+      images?: Array<{
+        src: string;
+        alt: string;
+        width: number;
+        height: number;
+      }>;
     }>;
   };
 }

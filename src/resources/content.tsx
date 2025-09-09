@@ -15,7 +15,7 @@ const person: Person = {
   lastName: "Bin Alvee",
   name: "Syed Raqueed Bin Alvee",
   role: "Electrical & Embedded Systems Engineer (Firmware)",
-  avatar: "/images/avatar.jpg",
+  avatar: "/images/avatar.webp",
   email: "raqueed@outlook.com",
   location: "America/Chicago",
   languages: ["English", "Bangla"],
@@ -287,28 +287,33 @@ const homeTestimonials = [
 const homeHobbies = [
   {
     title: "Music",
+    slug: "music",
     caption: "Guitar + lo-fi jams.",
     src: "/images/home/hobby-music.jpg",
   },
   {
     title: "Photography",
+    slug: "photography",
     caption: "Light, lines & details.",
     src: "/images/home/hobby-photography.jpg",
   },
   {
     title: "Traveling",
+    slug: "traveling",
     caption: "New cities, new coffee.",
     src: "/images/home/hobby-traveling.jpg",
   },
   {
     title: "Gaming",
+    slug: "gaming",
     caption: "Strategy & chill co-ops.",
     src: "/images/home/hobby-gaming.jpg",
   },
   {
     title: "Guitar Rig",
+    slug: "guitar-rig",
     caption: "Pedals, tone and practice.",
-    src: "/images/home/hobby-guitter.jpg",
+    src: "/images/home/hobby-guitter.jpg", // keep your current asset path
   },
 ] as const;
 
@@ -344,6 +349,7 @@ const about: About = {
         company: "Milwaukee Tool",
         timeframe: "Jan 2024 – Present",
         role: "Electrical Engineer II · Platform IoT",
+        logo: "/images/about/work_milwaukee.webp",
         achievements: [
           <>
             Built and scaled firmware and automated validation across
@@ -371,6 +377,7 @@ const about: About = {
         company: "Milwaukee Tool",
         timeframe: "Jun 2022 – Dec 2023",
         role: "Electrical Engineer I · Platform IoT",
+        logo: "/images/about/work_milwaukee.webp",
         achievements: [
           <>
             Shipped FW features (BLE advertisement patterns, watchdog, ADC,
@@ -390,8 +397,8 @@ const about: About = {
       {
         company: "Texas A&M University – Kingsville",
         timeframe: "May 2021 – Jun 2022",
-        role:
-          "Graduate Research Assistant · Cyber-Physical Power & Energy Lab",
+        role: "Graduate Research Assistant · Cyber-Physical Power & Energy Lab",
+        logo: "/images/about/work_A_and_M.webp",
         achievements: [
           <>
             Cybersecurity + ML research for DOE/SETO and KERI projects (HIL
@@ -408,6 +415,7 @@ const about: About = {
         company: "Texas A&M University – Kingsville",
         timeframe: "Jan 2021 – May 2021",
         role: "Graduate Teaching Assistant · DSP & Speech Processing",
+        logo: "/images/about/work_A_and_M.webp",
         achievements: [
           <>
             Designed labs and rubrics; supported students with practical DSP
@@ -425,6 +433,9 @@ const about: About = {
     institutions: [
       {
         name: "American International University–Bangladesh (AIUB)",
+        logo: "/images/about/studies_aiub.webp",
+        thesis:
+          "Thesis: On-body humidity sensing antenna with polyimide for BAN applications over 5G networks",
         description: (
           <>
             Bachelor of Science (B.S.), Electrical & Electronics Engineering,{" "}
@@ -434,6 +445,9 @@ const about: About = {
       },
       {
         name: "Texas A&M University – Kingsville",
+        logo: "/images/about/studies_A_and_M.webp",
+        thesis:
+          "Thesis: Study on Artificial Intelligence-Based Ransomware Detection for Digital Substations",
         description: (
           <>
             Master of Science (M.S.), Electrical & Electronics Engineering,{" "}

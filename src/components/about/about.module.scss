@@ -1,5 +1,19 @@
 @use "../breakpoints.scss" as breakpoints;
 
+.avatarImg {
+  width: 160px;            
+  height: auto;
+  border-radius: 16px;      
+  overflow: hidden;
+}
+
+.orgLogo {
+  width: 60px;
+  height: auto;
+  overflow: hidden;
+}
+
+
 .hover {
   transition: var(--transition-micro-medium);
   &:hover { transform: translateX(var(--static-space-4)); }

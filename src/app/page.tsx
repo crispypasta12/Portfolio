@@ -179,7 +179,7 @@ export default async function HomePage() {
             title={<>Signature Highlights</>}
             subtitle={<>A few focus areas I’m known for</>}
           />
-          <SignatureCarousel items={highlights} />
+          <SignatureCarousel items={highlights} autoShuffleMs={8000} />
         </Column>
       </RevealFx>
 
@@ -249,12 +249,11 @@ export default async function HomePage() {
             <div className={styles.hobbiesGrid}>
               {homeHobbies.map((h, i) => (
                 <a
-                  href="/gallery"
+                  href={`/hobbies/${h.slug}`}
                   className={styles.hobby}
                   key={`${h.title}-${i}`}
-                  aria-label={`${h.title} – open gallery`}
+                  aria-label={`${h.title} – open page`}
                 >
-                  {/* Replaced <img> with Media to satisfy Next ESLint */}
                   <Media src={h.src} alt={h.title} radius="l" />
                   <div className={styles.overlay} />
                   <div className={styles.label}>

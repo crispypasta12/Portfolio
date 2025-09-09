@@ -1,3 +1,11 @@
+.base { color: var(--neutral-on-background-weak); }
+.reveal { position: absolute; inset: 0; color: #fff; will-change: clip-path; pointer-events: none; transition: color .35s ease; }
+
+:global(html[data-theme='light']) {
+  .title .base { color: rgba(0,0,0,.55); }
+  .title .reveal { color: #000; } 
+}
+
 .wrap {
   --reveal: 0;
   text-align: center;
