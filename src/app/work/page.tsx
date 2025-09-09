@@ -8,6 +8,7 @@ import {
   Schema,
   Text,
   RevealFx,
+  SmartLink,
 } from "@once-ui-system/core";
 import { baseURL, about, person, work, home } from "@/resources";
 import SectionTitleFx from "@/components/home/SectionTitleFx";
@@ -28,8 +29,17 @@ export default function WorkPage() {
   const steps = home.process?.steps ?? [];
   const pubs = home.publications?.items ?? [];
 
+  const scholarProfile =
+    "https://scholar.google.com/citations?user=tQTSPM0AAAAJ";
+
   return (
-    <Column maxWidth="m" paddingTop="48" paddingBottom="l" gap="xl" horizontal="center">
+    <Column
+      maxWidth="m"
+      paddingTop="48"
+      paddingBottom="l"
+      gap="xl"
+      horizontal="center"
+    >
       <Schema
         as="webPage"
         baseURL={baseURL}
@@ -47,7 +57,12 @@ export default function WorkPage() {
       {/* HERO */}
       <RevealFx translateY={2} horizontal="center">
         <Column maxWidth="s" align="center" horizontal="center" gap="8">
-          <Badge background="brand-alpha-weak" marginBottom="16" textVariant="label-default-s" arrow={false}>
+          <Badge
+            background="brand-alpha-weak"
+            marginBottom="16"
+            textVariant="label-default-s"
+            arrow={false}
+          >
             <Row gap="8" vertical="center">
               <Icon name="cpu" />
               Projects · Process · Publications
@@ -56,8 +71,13 @@ export default function WorkPage() {
           <Heading align="center" variant="display-strong-l" marginBottom="16">
             Impactful firmware from bench to fleet
           </Heading>
-          <Text align="center" variant="heading-default-m" onBackground="neutral-weak">
-            Selected work across embedded firmware, connectivity, observability, and automated validation.
+          <Text
+            align="center"
+            variant="heading-default-m"
+            onBackground="neutral-weak"
+          >
+            Selected work across embedded firmware, connectivity, observability,
+            and automated validation.
           </Text>
         </Column>
       </RevealFx>
@@ -74,15 +94,21 @@ export default function WorkPage() {
             />
             <div className={styles.grid}>
               {steps.map((s, i) => (
-                <div key={`${s.title}-${i}`} className={`${styles.card} ${styles.tilt}`}>
+                <div
+                  key={`${s.title}-${i}`}
+                  className={`${styles.card} ${styles.tilt} ${styles.processCard}`}
+                >
                   <Row gap="20" vertical="center">
                     <div className={styles.iconWrap}>
                       {s.icon && <Icon name={s.icon} />}
                       <span className={styles.stepIndex}>{i + 1}</span>
                     </div>
-                    <Column gap="4">
+                    <Column gap="8">
                       <Text variant="heading-strong-m">{s.title}</Text>
-                      <Text variant="body-default-m" onBackground="neutral-weak">
+                      <Text
+                        variant="body-default-m"
+                        onBackground="neutral-weak"
+                      >
                         {s.description}
                       </Text>
                     </Column>
@@ -101,7 +127,9 @@ export default function WorkPage() {
         <Column gap="12" className={styles.section}>
           <SectionTitleFx
             title={<>Projects</>}
-            subtitle={<>A mix of production features, prototypes, and test infrastructure</>}
+            subtitle={
+              <>A mix of production features, prototypes, and test infrastructure</>
+            }
           />
         </Column>
       </RevealFx>
@@ -119,23 +147,50 @@ export default function WorkPage() {
               title={<>Publications & Recognition</>}
               subtitle={<>Selected papers & venues</>}
             />
+            <Row className={styles.scholarTop} gap="8" vertical="center">
+              <Icon name="fileText" />
+              <SmartLink href={scholarProfile} aria-label="View Google Scholar">
+                <Text variant="label-default-m">View on Google Scholar ↗</Text>
+              </SmartLink>
+            </Row>
+
             <div className={styles.grid}>
               {pubs.map((p, i) => (
-                <div key={`${p.title}-${i}`} className={`${styles.card} ${styles.glass} ${styles.pubCard}`}>
+                <div
+                  key={`${p.title}-${i}`}
+                  className={`${styles.card} ${styles.glass} ${styles.pubCard}`}
+                >
                   <Column gap="8">
                     <Row gap="12" vertical="center">
                       <Icon name="fileText" />
-                      {/* Default text is white; hover color handled in CSS */}
-                      <Text as="h4" className={styles.pubTitle} variant="heading-strong-m">
+                      <Text
+                        as="h4"
+                        className={styles.pubTitle}
+                        variant="heading-strong-m"
+                      >
                         {p.title}
                       </Text>
                     </Row>
-                    <Text className={styles.pubMeta} variant="body-default-s" onBackground="neutral-weak">
+
+                    <Text
+                      className={styles.pubMeta}
+                      variant="body-default-s"
+                      onBackground="neutral-weak"
+                    >
                       {[p.venue, p.year].filter(Boolean).join(" · ")}
                     </Text>
-                    {p.link && (
-                      <Row paddingTop="8">
-                        {/* Use a plain anchor so we don't nest links inside links */}
+
+                    <Row paddingTop="8" gap="16" wrap vertical="center">
+                      {typeof p.citations === "number" && (
+                        <Row gap="8" vertical="center" className={styles.citeRow}>
+                          <Icon name="chartUp" />
+                          <Text variant="label-default-m">
+                            {p.citations} citations
+                          </Text>
+                        </Row>
+                      )}
+
+                      {p.link && (
                         <a
                           className={styles.pubRead}
                           href={p.link}
@@ -145,8 +200,20 @@ export default function WorkPage() {
                         >
                           Read →
                         </a>
-                      </Row>
-                    )}
+                      )}
+
+                      {p.scholar && (
+                        <a
+                          className={styles.scholarLink}
+                          href={p.scholar}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`Open on Google Scholar: ${p.title}`}
+                        >
+                          Scholar ↗
+                        </a>
+                      )}
+                    </Row>
                   </Column>
                 </div>
               ))}

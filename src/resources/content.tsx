@@ -179,33 +179,48 @@ const home: Home = {
         venue: "IEEE IEMTRONICS",
         year: "2020",
         link: "https://ieeexplore.ieee.org/document/9216331",
+        scholar:
+          "https://scholar.google.com/scholar?q=On-Body%20Humidity%20Sensing%20Antenna%20with%20Polyimide%20for%20BAN%20Applications%20over%205G%20Networks",
+        citations: 7,
       },
       {
         title:
           "Advanced Persistent Threat (APT)-style attack modeling and testbed for power transformer diagnosis system in a substation",
         venue: "IEEE PES ISGT",
         year: "2022",
-        link: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=0uFzd80AAAAJ&citation_for_view=0uFzd80AAAAJ:9yKSN-GCB0IC",
+        link: "https://scholar.google.com/scholar?q=Advanced%20Persistent%20Threat%20(APT)-style%20attack%20modeling%20and%20testbed%20for%20power%20transformer%20diagnosis%20system%20in%20a%20substation",
+        scholar:
+          "https://scholar.google.com/scholar?q=Advanced%20Persistent%20Threat%20(APT)-style%20attack%20modeling%20and%20testbed%20for%20power%20transformer%20diagnosis%20system%20in%20a%20substation",
+        citations: 10,
       },
       {
         title:
           "Device-centric firmware malware detection for smart inverters using deep transfer learning",
         venue: "IEEE DMC",
         year: "2022",
-        link: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=0uFzd80AAAAJ&citation_for_view=0uFzd80AAAAJ:2osOgNQ5qMEC",
+        link: "https://scholar.google.com/scholar?q=Device-centric%20firmware%20malware%20detection%20for%20smart%20inverters%20using%20deep%20transfer%20learning",
+        scholar:
+          "https://scholar.google.com/scholar?q=Device-centric%20firmware%20malware%20detection%20for%20smart%20inverters%20using%20deep%20transfer%20learning",
+        citations: 10,
       },
       {
         title:
           "Ransomware attack modeling and AI-based ransomware detection for digital substations",
         venue: "IEEE eGRID",
         year: "2021",
-        link: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=0uFzd80AAAAJ&citation_for_view=0uFzd80AAAAJ:d1gkVwhDpl0C",
+        link: "https://scholar.google.com/scholar?q=Ransomware%20attack%20modeling%20and%20AI-based%20ransomware%20detection%20for%20digital%20substations",
+        scholar:
+          "https://scholar.google.com/scholar?q=Ransomware%20attack%20modeling%20and%20AI-based%20ransomware%20detection%20for%20digital%20substations",
+        citations: 38,
       },
       {
         title: "Ransomware security threat modeling for photovoltaic systems",
         venue: "IEEE eGRID",
         year: "2021",
-        link: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=0uFzd80AAAAJ&citation_for_view=0uFzd80AAAAJ:u-x6o8ySG0sC",
+        link: "https://scholar.google.com/scholar?q=Ransomware%20security%20threat%20modeling%20for%20photovoltaic%20systems",
+        scholar:
+          "https://scholar.google.com/scholar?q=Ransomware%20security%20threat%20modeling%20for%20photovoltaic%20systems",
+        citations: 11,
       },
     ],
   },

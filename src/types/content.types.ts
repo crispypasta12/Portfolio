@@ -98,6 +98,8 @@ export interface Home extends BasePageConfig {
       venue?: string;
       year?: string;
       link?: string;
+      scholar?: string; 
+      citations?: number;
     }>;
   };
 
@@ -150,9 +152,7 @@ export interface About extends BasePageConfig {
     title: string;
     institutions: Array<{
       name: string;
-      /** NEW: optional logo path */
       logo?: string;
-      /** NEW: optional thesis line */
       thesis?: string;
       description: React.ReactNode;
     }>;
