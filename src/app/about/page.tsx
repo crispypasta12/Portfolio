@@ -68,6 +68,7 @@ export default function About() {
           image: `${baseURL}${person.avatar}`,
         }}
       />
+
       {about.tableOfContent.display && (
         <Column
           left="0"
@@ -80,6 +81,7 @@ export default function About() {
           <TableOfContents structure={structure} about={about} />
         </Column>
       )}
+
       <RevealFx translateY="8" fillWidth horizontal="center">
         <Row
           fillWidth
@@ -101,14 +103,9 @@ export default function About() {
               flex={3}
               horizontal="center"
             >
-              {/* Square avatar with rounded corners */}
-              <Media
-                src={person.avatar}
-                alt={person.name}
-                aspectRatio="1 / 1"
-                radius="l"
-                className={styles.avatarImg}
-              />
+              <div className={styles.avatarBox}>
+                <Media src={person.avatar} alt={person.name} radius="none" />
+              </div>
 
               <Row gap="8" vertical="center">
                 <Icon onBackground="accent-weak" name="globe" />
@@ -206,7 +203,6 @@ export default function About() {
             {about.work.display && (
               <>
                 <div className={styles.section}>
-                  {/* Anchor BEFORE the title effect so ToC finds it */}
                   <Anchor id={about.work.title} />
                   <AboutTitleFx
                     title={about.work.title}
@@ -224,13 +220,13 @@ export default function About() {
                         <Row fillWidth horizontal="between" vertical="end">
                           <Row gap="12" vertical="center">
                             {experience.logo && (
-                              <Media
-                                src={experience.logo}
-                                alt={`${experience.company} logo`}
-                                aspectRatio="17 / 8"
-                                radius="none"
-                                className={styles.orgLogo}
-                              />
+                              <div className={styles.logoBox}>
+                                <Media
+                                  src={experience.logo}
+                                  alt={`${experience.company} logo`}
+                                  radius="none"
+                                />
+                              </div>
                             )}
                             <Text
                               id={experience.company}
@@ -326,13 +322,13 @@ export default function About() {
                       <Column fillWidth gap="8">
                         <Row gap="12" vertical="center">
                           {institution.logo && (
-                            <Media
-                              src={institution.logo}
-                              alt={`${institution.name} logo`}
-                              aspectRatio="1 / 1"
-                              radius="none"
-                              className={styles.orgLogo}
-                            />
+                            <div className={styles.logoBoxSquare}>
+                              <Media
+                                src={institution.logo}
+                                alt={`${institution.name} logo`}
+                                radius="none"
+                              />
+                            </div>
                           )}
                           <Text
                             id={institution.name}
