@@ -3,36 +3,71 @@
 import { useEffect, useMemo, useState, useCallback } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
-import { Badge, Button, Column, MasonryGrid, Row, Tag, Text, Media } from "@once-ui-system/core";
+import {
+  Badge,
+  Button,
+  Column,
+  MasonryGrid,
+  Row,
+  Tag,
+  Text,
+  Media,
+} from "@once-ui-system/core";
 import { gallery } from "@/resources";
 import styles from "./gallery.module.scss";
 
-const INITIAL_PER_LOCATION = 6;  
-const LOAD_STEP = 6;             
-const PRIORITY_PER_SECTION = 6;   
+const INITIAL_PER_LOCATION = 6;
+const LOAD_STEP = 6;
+const PRIORITY_PER_SECTION = 6;
 
 type FlatImage = {
   id: string;
+  country: string;
   location: string;
-  src: string;        
-  full?: string;      
+  src: string;
+  full?: string;
   alt: string;
   orientation?: "horizontal" | "vertical" | "square";
 };
 
 export default function GalleryView() {
   const groups = useMemo(() => gallery.groups ?? [], []);
-  const locations = useMemo(() => groups.map((g) => g.location), [groups]);
+
+  const countries = useMemo(
+    () => Array.from(new Set(groups.map((g) => g.country))),
+    [groups]
+  );
+  const locations = useMemo(
+    () => Array.from(new Set(groups.map((g) => g.location))),
+    [groups]
+  );
+
+  const locationsByCountry = useMemo(() => {
+    const map = new Map<string, string[]>();
+    groups.forEach((g) => {
+      const arr = map.get(g.country) ?? [];
+      if (!arr.includes(g.location)) arr.push(g.location);
+      map.set(g.country, arr);
+    });
+    return map;
+  }, [groups]);
+
+  const locationToCountry = useMemo(() => {
+    const m = new Map<string, string>();
+    groups.forEach((g) => m.set(g.location, g.country));
+    return m;
+  }, [groups]);
 
   const allImages: FlatImage[] = useMemo(() => {
     const out: FlatImage[] = [];
     groups.forEach((g) => {
       g.images.forEach((img, idx) => {
         out.push({
-          id: `${g.location}-${idx}`,
+          id: `${g.country}-${g.location}-${idx}`,
+          country: g.country,
           location: g.location,
           src: img.src,
-          full: img.full,      
+          full: img.full,
           alt: img.alt,
           orientation: img.orientation,
         });
@@ -42,6 +77,7 @@ export default function GalleryView() {
   }, [groups]);
 
   const [query, setQuery] = useState("");
+  const [activeCountry, setActiveCountry] = useState<string | "All">("All"); 
   const [activeLocation, setActiveLocation] = useState<string | "All">("All");
 
   const [visible, setVisible] = useState<Record<string, number>>(() => {
@@ -60,14 +96,57 @@ export default function GalleryView() {
     if (activeLocation !== "All") setActiveLocation("All");
   };
 
-  const filteredLocations = useMemo(() => {
-    const base = activeLocation === "All" ? locations : [activeLocation];
+  const filteredCountries = useMemo(() => {
+    const base = activeCountry === "All" ? countries : [activeCountry];
     if (!normalizedQuery) return base;
-    return base.filter((loc) => loc.toLowerCase().includes(normalizedQuery));
-  }, [locations, activeLocation, normalizedQuery]);
+    return base.filter((c) => c.toLowerCase().includes(normalizedQuery));
+  }, [countries, activeCountry, normalizedQuery]);
+
+  const filteredLocations = useMemo(() => {
+    const baseLocs =
+      activeLocation === "All"
+        ? activeCountry === "All"
+          ? locations
+          : locationsByCountry.get(activeCountry) ?? []
+        : [activeLocation];
+
+    if (!normalizedQuery) return baseLocs;
+
+    const matchesLoc = baseLocs.filter((loc) =>
+      loc.toLowerCase().includes(normalizedQuery)
+    );
+
+    const matchedCountries =
+      activeCountry === "All"
+        ? countries.filter((c) => c.toLowerCase().includes(normalizedQuery))
+        : [activeCountry].filter((c) =>
+            c.toLowerCase().includes(normalizedQuery)
+          );
+
+    const byCountryLocs = matchedCountries.flatMap(
+      (c) => locationsByCountry.get(c) ?? []
+    );
+
+    const baseSet = new Set(baseLocs);
+    const union = Array.from(new Set([...matchesLoc, ...byCountryLocs])).filter(
+      (loc) => baseSet.has(loc)
+    );
+
+    return union;
+  }, [
+    locations,
+    locationsByCountry,
+    countries,
+    activeCountry,
+    activeLocation,
+    normalizedQuery,
+  ]);
 
   const onLoadMore = (location: string) => {
-    setVisible((v) => ({ ...v, [location]: (v[location] ?? INITIAL_PER_LOCATION) + LOAD_STEP }));
+    setVisible((v) => ({
+      ...v,
+      [location]: (v[location] ?? INITIAL_PER_LOCATION) + LOAD_STEP,
+    }));
   };
 
   const closeLightbox = useCallback(() => {
@@ -95,7 +174,6 @@ export default function GalleryView() {
     };
   }, [open, closeLightbox]);
 
-  // mount flag for portal to avoid SSR mismatch
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
@@ -103,34 +181,83 @@ export default function GalleryView() {
 
   return (
     <Column gap="20" className={styles.wrap}>
-      <Row className={styles.controls} wrap gap="8" horizontal="between" vertical="center">
-        <Row gap="8" wrap>
-          <Tag
-            size="l"
-            className={`${styles.filterChip} ${activeLocation === "All" ? styles.activeChip : ""}`}
-            onClick={() => setActiveLocation("All")}
-          >
-            All
-          </Tag>
-          {locations.map((loc) => (
+      <Row
+        className={styles.controls}
+        wrap
+        gap="8"
+        horizontal="between"
+        vertical="center"
+      >
+        <Column gap="8">
+          <Row gap="4" wrap vertical="center" className={styles.controlsRow}>
+            <Text as="span" className={styles.filterLabel}>
+              Country
+            </Text>
             <Tag
-              key={loc}
               size="l"
-              className={`${styles.filterChip} ${activeLocation === loc ? styles.activeChip : ""}`}
-              onClick={() => setActiveLocation((curr) => (curr === loc ? "All" : loc))}
+              className={`${styles.filterChip} ${
+                activeCountry === "All" ? styles.activeChip : ""
+              }`}
+              onClick={() => setActiveCountry("All")}
             >
-              {loc}
+              All
             </Tag>
-          ))}
-        </Row>
+            {countries.map((c) => (
+              <Tag
+                key={c}
+                size="l"
+                className={`${styles.filterChip} ${
+                  activeCountry === c ? styles.activeChip : ""
+                }`}
+                onClick={() =>
+                  setActiveCountry((curr) => (curr === c ? "All" : c))
+                }
+              >
+                {c}
+              </Tag>
+            ))}
+          </Row>
+
+          <Row gap="4" wrap vertical="center" className={styles.controlsRow}>
+            <Text as="span" className={styles.filterLabel}>
+              Location
+            </Text>
+            <Tag
+              size="l"
+              className={`${styles.filterChip} ${
+                activeLocation === "All" ? styles.activeChip : ""
+              }`}
+              onClick={() => setActiveLocation("All")}
+            >
+              All
+            </Tag>
+            {(activeCountry === "All"
+              ? locations
+              : locationsByCountry.get(activeCountry) ?? []
+            ).map((loc) => (
+              <Tag
+                key={loc}
+                size="l"
+                className={`${styles.filterChip} ${
+                  activeLocation === loc ? styles.activeChip : ""
+                }`}
+                onClick={() =>
+                  setActiveLocation((curr) => (curr === loc ? "All" : loc))
+                }
+              >
+                {loc}
+              </Tag>
+            ))}
+          </Row>
+        </Column>
 
         <div className={styles.searchBox}>
           <input
             type="search"
-            placeholder="Search location…"
+            placeholder="Search country or location…"
             value={query}
             onChange={(e) => onQueryChange(e.target.value)}
-            aria-label="Search by location"
+            aria-label="Search by country or location"
           />
         </div>
       </Row>
@@ -138,107 +265,207 @@ export default function GalleryView() {
       <div className={styles.softDivider} />
 
       {allMode ? (
-        <Column gap="32">
-          {filteredLocations.map((loc) => {
-            const locationImages = allImages.filter((img) => img.location === loc);
-            const items = locationImages.slice(0, visible[loc] ?? INITIAL_PER_LOCATION);
-            const total = locationImages.length;
+        <Column gap="40">
+          {(activeCountry === "All" ? countries : [activeCountry]).map(
+            (country) => {
+              const countryLocs =
+                locationsByCountry.get(country)?.filter(
+                  (loc) =>
+                    true
+                ) ?? [];
 
-            return (
-              <Column key={loc} gap="12">
-                <Row horizontal="between" vertical="center">
-                  <Text as="h3" variant="heading-strong-l">{loc}</Text>
-                  <Badge background="neutral-alpha-weak" textVariant="label-default-s" arrow={false}>
-                    {items.length} / {total}
-                  </Badge>
-                </Row>
+              if (countryLocs.length === 0) return null;
 
-                <MasonryGrid columns={3} m={{ columns: 2 }} s={{ columns: 1 }}>
-                  {items.map((img, idx) => (
-                    <Media
-                      key={img.id}
-                      className={styles.thumb}
-                      radius="m"
-                      onClick={() => openLightbox(img)}
-                      src={img.src}
-                      alt={img.alt}
-                      priority={idx < PRIORITY_PER_SECTION}
-                      sizes="(max-width: 640px) 100vw, (max-width: 1040px) 50vw, 33vw"
-                      aspectRatio={
-                        img.orientation === "vertical"
-                          ? "3 / 4"
-                          : img.orientation === "square"
-                          ? "1 / 1"
-                          : "16 / 10"
-                      }
-                    />
-                  ))}
-                </MasonryGrid>
+              return (
+                <Column key={country} gap="16">
+                  <Text as="h2" variant="heading-strong-xl">
+                    {country}
+                  </Text>
 
-                {items.length < total && (
-                  <Row horizontal="center" paddingTop="8">
-                    <Button variant="secondary" size="s" onClick={() => onLoadMore(loc)} data-border="rounded">
-                      Load more from {loc}
-                    </Button>
-                  </Row>
-                )}
-              </Column>
-            );
-          })}
+                  {countryLocs.map((loc) => {
+                    const locationImages = allImages.filter(
+                      (img) => img.country === country && img.location === loc
+                    );
+                    const items = locationImages.slice(
+                      0,
+                      visible[loc] ?? INITIAL_PER_LOCATION
+                    );
+                    const total = locationImages.length;
+
+                    return (
+                      <Column key={`${country}-${loc}`} gap="12">
+                        <Row horizontal="between" vertical="center">
+                          <Text as="h3" variant="heading-strong-l">
+                            {loc}
+                          </Text>
+                          <Badge
+                            background="neutral-alpha-weak"
+                            textVariant="label-default-s"
+                            arrow={false}
+                          >
+                            {items.length} / {total}
+                          </Badge>
+                        </Row>
+
+                        <MasonryGrid
+                          columns={3}
+                          m={{ columns: 2 }}
+                          s={{ columns: 1 }}
+                        >
+                          {items.map((img, idx) => (
+                            <Media
+                              key={img.id}
+                              className={styles.thumb}
+                              radius="m"
+                              onClick={() => openLightbox(img)}
+                              src={img.src}
+                              alt={img.alt}
+                              priority={idx < PRIORITY_PER_SECTION}
+                              sizes="(max-width: 640px) 100vw, (max-width: 1040px) 50vw, 33vw"
+                              aspectRatio={
+                                img.orientation === "vertical"
+                                  ? "3 / 4"
+                                  : img.orientation === "square"
+                                  ? "1 / 1"
+                                  : "16 / 10"
+                              }
+                            />
+                          ))}
+                        </MasonryGrid>
+
+                        {items.length < total && (
+                          <Row horizontal="center" paddingTop="8">
+                            <Button
+                              variant="secondary"
+                              size="s"
+                              onClick={() => onLoadMore(loc)}
+                              data-border="rounded"
+                            >
+                              Load more from {loc}
+                            </Button>
+                          </Row>
+                        )}
+                      </Column>
+                    );
+                  })}
+                </Column>
+              );
+            }
+          )}
         </Column>
       ) : (
-        filteredLocations.map((loc) => {
-          const locationImages = allImages.filter((img) => img.location === loc);
-          const items = locationImages.slice(0, visible[loc] ?? INITIAL_PER_LOCATION);
-          const total = locationImages.length;
+        <Column gap="40">
+          {(() => {
+            const locs = filteredLocations;
 
-          return (
-            <Column key={loc} gap="12">
-              <Row horizontal="between" vertical="center">
-                <Text as="h3" variant="heading-strong-l">{loc}</Text>
-                <Badge background="neutral-alpha-weak" textVariant="label-default-s" arrow={false}>
-                  {items.length} / {total}
-                </Badge>
-              </Row>
+            const countryToLocs = new Map<string, string[]>();
+            locs.forEach((loc) => {
+              const c = locationToCountry.get(loc);
+              if (!c) return;
+              const arr = countryToLocs.get(c) ?? [];
+              if (!arr.includes(loc)) arr.push(loc);
+              countryToLocs.set(c, arr);
+            });
 
-              <MasonryGrid columns={3} m={{ columns: 2 }} s={{ columns: 1 }}>
-                {items.map((img, idx) => (
-                  <Media
-                    key={img.id}
-                    className={styles.thumb}
-                    radius="m"
-                    onClick={() => openLightbox(img)}
-                    src={img.src}
-                    alt={img.alt}
-                    priority={idx < PRIORITY_PER_SECTION}
-                    sizes="(max-width: 640px) 100vw, (max-width: 1040px) 50vw, 33vw"
-                    aspectRatio={
-                      img.orientation === "vertical"
-                        ? "3 / 4"
-                        : img.orientation === "square"
-                        ? "1 / 1"
-                        : "16 / 10"
-                    }
-                  />
-                ))}
-              </MasonryGrid>
+            const countriesToRender =
+              activeCountry === "All"
+                ? Array.from(countryToLocs.keys())
+                : countryToLocs.has(activeCountry)
+                ? [activeCountry]
+                : [];
 
-              {items.length < total && (
-                <Row horizontal="center" paddingTop="8">
-                  <Button variant="secondary" size="s" onClick={() => onLoadMore(loc)} data-border="rounded">
-                    Load more
-                  </Button>
-                </Row>
-              )}
-            </Column>
-          );
-        })
+            return countriesToRender.map((country) => (
+              <Column key={country} gap="16">
+                <Text as="h2" variant="heading-strong-xl">
+                  {country}
+                </Text>
+
+                {(countryToLocs.get(country) ?? []).map((loc) => {
+                  const locationImages = allImages.filter(
+                    (img) => img.country === country && img.location === loc
+                  );
+                  const items = locationImages.slice(
+                    0,
+                    visible[loc] ?? INITIAL_PER_LOCATION
+                  );
+                  const total = locationImages.length;
+
+                  return (
+                    <Column key={`${country}-${loc}`} gap="12">
+                      <Row horizontal="between" vertical="center">
+                        <Text as="h3" variant="heading-strong-l">
+                          {loc}
+                        </Text>
+                        <Badge
+                          background="neutral-alpha-weak"
+                          textVariant="label-default-s"
+                          arrow={false}
+                        >
+                          {items.length} / {total}
+                        </Badge>
+                      </Row>
+
+                      <MasonryGrid
+                        columns={3}
+                        m={{ columns: 2 }}
+                        s={{ columns: 1 }}
+                      >
+                        {items.map((img, idx) => (
+                          <Media
+                            key={img.id}
+                            className={styles.thumb}
+                            radius="m"
+                            onClick={() => openLightbox(img)}
+                            src={img.src}
+                            alt={img.alt}
+                            priority={idx < PRIORITY_PER_SECTION}
+                            sizes="(max-width: 640px) 100vw, (max-width: 1040px) 50vw, 33vw"
+                            aspectRatio={
+                              img.orientation === "vertical"
+                                ? "3 / 4"
+                                : img.orientation === "square"
+                                ? "1 / 1"
+                                : "16 / 10"
+                            }
+                          />
+                        ))}
+                      </MasonryGrid>
+
+                      {items.length < total && (
+                        <Row horizontal="center" paddingTop="8">
+                          <Button
+                            variant="secondary"
+                            size="s"
+                            onClick={() => onLoadMore(loc)}
+                            data-border="rounded"
+                          >
+                            Load more
+                          </Button>
+                        </Row>
+                      )}
+                    </Column>
+                  );
+                })}
+              </Column>
+            ));
+          })()}
+        </Column>
       )}
 
-      {mounted && open && selected &&
+      {mounted &&
+        open &&
+        selected &&
         createPortal(
-          <div className={styles.lightboxBackdrop} onClick={closeLightbox} role="dialog" aria-modal="true">
-            <div className={styles.lightboxInner} onClick={(e) => e.stopPropagation()}>
+          <div
+            className={styles.lightboxBackdrop}
+            onClick={closeLightbox}
+            role="dialog"
+            aria-modal="true"
+          >
+            <div
+              className={styles.lightboxInner}
+              onClick={(e) => e.stopPropagation()}
+            >
               <Image
                 src={selected.full || selected.src}
                 alt={selected.alt}

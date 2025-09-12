@@ -570,6 +570,7 @@ const gallery: Gallery = {
   description: `A photo collection by ${person.name}`,
   groups: [
   {
+    country: "USA",
     location: "Chicago",
     images: [
       { src: "/images/gallery/USA/Chicago/DSCF1562.avif", alt: "Chicago — DSCF1562" },
@@ -587,6 +588,7 @@ const gallery: Gallery = {
     ],
   },
   {
+    country: "USA",
     location: "Indiana",
     images: [
       { src: "/images/gallery/USA/Indiana/DSCF1424.avif", alt: "Indiana — DSCF1424" },
@@ -596,6 +598,7 @@ const gallery: Gallery = {
     ],
   },
   {
+    country: "USA",
     location: "Michigan",
     images: [
       { src: "/images/gallery/USA/Michigan/DSCF0107.avif", alt: "Michigan — DSCF0107" },
@@ -603,6 +606,7 @@ const gallery: Gallery = {
     ],
   },
   {
+    country: "USA",
     location: "Minnesota",
     images: [
       { src: "/images/gallery/USA/Minnesota/DSCF1970.avif", alt: "Minnesota — DSCF1970" },
@@ -612,6 +616,7 @@ const gallery: Gallery = {
     ],
   },
   {
+    country: "USA",
     location: "New York",
     images: [
       { src: "/images/gallery/USA/New York/DSCF2088.avif", alt: "New York — DSCF2088" },
@@ -622,6 +627,7 @@ const gallery: Gallery = {
     ],
   },
   {
+    country: "USA",
     location: "Ohio",
     images: [
       { src: "/images/gallery/USA/Ohio/DSCF3254.avif", alt: "Ohio — DSCF3254" },
@@ -632,6 +638,7 @@ const gallery: Gallery = {
     ],
   },
   {
+    country: "USA",
     location: "Tennesse",
     images: [
       { src: "/images/gallery/USA/Tennesse/DSCF4596.avif", alt: "Tennesse — DSCF4596" },
@@ -648,6 +655,7 @@ const gallery: Gallery = {
     ],
   },
   {
+    country: "USA",
     location: "Wisconsin",
     images: [
       { src: "/images/gallery/USA/Wisconsin/DSCF5098.avif", alt: "Wisconsin — DSCF5098" },
@@ -655,6 +663,16 @@ const gallery: Gallery = {
       { src: "/images/gallery/USA/Wisconsin/DSCF5061.avif", alt: "Wisconsin — DSCF5061" },
     ],
   },
+  {
+      country: "Bangladesh",
+      location: "Chittagong",
+      images: [
+        {
+          src: "/images/gallery/Bangladesh/Chittagong/Eco6w0EUwAAPqz.avif",
+          alt: "Chittagong — Eco6w0EUwAAPqz",
+        },
+      ],
+    }
 ]
 
 };

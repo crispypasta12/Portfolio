@@ -178,6 +178,7 @@ export interface Blog extends BasePageConfig {}
 export interface Work extends BasePageConfig {}
 export interface Gallery extends BasePageConfig {
   groups: Array<{
+    country: string;
     location: string;
     images: Array<{
       src: string;     
