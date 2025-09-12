@@ -328,7 +328,7 @@ const homeHobbies = [
     title: "Guitar Rig",
     slug: "guitar-rig",
     caption: "Pedals, tone and practice.",
-    src: "/images/home/hobby-guitter.jpg", // keep your current asset path
+    src: "/images/home/hobby-guitter.jpg", 
   },
 ] as const;
 
@@ -378,14 +378,6 @@ const about: About = {
             Established PyTest-based regression fixtures; expanded coverage
             across BLE, Wi-Fi, Cellular, GPS/GNSS.
           </>,
-        ],
-        images: [
-          {
-            src: "/images/featured/milwaukee_tool_featured.webp",
-            alt: "Connected tools platform",
-            width: 16,
-            height: 9,
-          },
         ],
       },
       {
