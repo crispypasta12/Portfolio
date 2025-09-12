@@ -576,48 +576,95 @@ const gallery: Gallery = {
   label: "Gallery",
   title: `Photo gallery – ${person.name}`,
   description: `A photo collection by ${person.name}`,
-  images: [
-    {
-      src: "/images/gallery/horizontal-1.jpg",
-      alt: "image",
-      orientation: "horizontal",
-    },
-    {
-      src: "/images/gallery/vertical-4.jpg",
-      alt: "image",
-      orientation: "vertical",
-    },
-    {
-      src: "/images/gallery/horizontal-3.jpg",
-      alt: "image",
-      orientation: "horizontal",
-    },
-    {
-      src: "/images/gallery/vertical-1.jpg",
-      alt: "image",
-      orientation: "vertical",
-    },
-    {
-      src: "/images/gallery/vertical-2.jpg",
-      alt: "image",
-      orientation: "vertical",
-    },
-    {
-      src: "/images/gallery/horizontal-2.jpg",
-      alt: "image",
-      orientation: "horizontal",
-    },
-    {
-      src: "/images/gallery/horizontal-4.jpg",
-      alt: "image",
-      orientation: "horizontal",
-    },
-    {
-      src: "/images/gallery/vertical-3.jpg",
-      alt: "image",
-      orientation: "vertical",
-    },
-  ],
+  groups: [
+  {
+    location: "Chicago",
+    images: [
+      { src: "/images/gallery/Chicago/DSCF1562.avif", alt: "Chicago — DSCF1562" },
+      { src: "/images/gallery/Chicago/DSCF1632.avif", alt: "Chicago — DSCF1632" },
+      { src: "/images/gallery/Chicago/DSCF1714.avif", alt: "Chicago — DSCF1714" },
+      { src: "/images/gallery/Chicago/DSCF1720.avif", alt: "Chicago — DSCF1720" },
+      { src: "/images/gallery/Chicago/DSCF3024.avif", alt: "Chicago — DSCF3024" },
+      { src: "/images/gallery/Chicago/DSCF3797.avif", alt: "Chicago — DSCF3797" },
+      { src: "/images/gallery/Chicago/DSCF5513.avif", alt: "Chicago — DSCF5513" },
+      { src: "/images/gallery/Chicago/DSCF5565.avif", alt: "Chicago — DSCF5565" },
+      { src: "/images/gallery/Chicago/DSCF5656.avif", alt: "Chicago — DSCF5656" },
+      { src: "/images/gallery/Chicago/DSCF5660.avif", alt: "Chicago — DSCF5660" },
+      { src: "/images/gallery/Chicago/DSCF5707.avif", alt: "Chicago — DSCF5707" },
+      { src: "/images/gallery/Chicago/DSCF5843.avif", alt: "Chicago — DSCF5843" },
+    ],
+  },
+  {
+    location: "Indiana",
+    images: [
+      { src: "/images/gallery/Indiana/DSCF1424.avif", alt: "Indiana — DSCF1424" },
+      { src: "/images/gallery/Indiana/DSCF1434.avif", alt: "Indiana — DSCF1434" },
+      { src: "/images/gallery/Indiana/DSCF1440.avif", alt: "Indiana — DSCF1440" },
+      { src: "/images/gallery/Indiana/DSCF1441.avif", alt: "Indiana — DSCF1441" },
+    ],
+  },
+  {
+    location: "Michigan",
+    images: [
+      { src: "/images/gallery/Michigan/DSCF0107.avif", alt: "Michigan — DSCF0107" },
+      { src: "/images/gallery/Michigan/DSCF0130.avif", alt: "Michigan — DSCF0130" },
+    ],
+  },
+  {
+    location: "Minnesota",
+    images: [
+      { src: "/images/gallery/Minnesota/DSCF1970.avif", alt: "Minnesota — DSCF1970" },
+      { src: "/images/gallery/Minnesota/DSCF1835.avif", alt: "Minnesota — DSCF1835" },
+      { src: "/images/gallery/Minnesota/DSCF1842.avif", alt: "Minnesota — DSCF1842" },
+      { src: "/images/gallery/Minnesota/DSCF1865.avif", alt: "Minnesota — DSCF1865" },
+    ],
+  },
+  {
+    location: "New York",
+    images: [
+      { src: "/images/gallery/New York/DSCF2088.avif", alt: "New York — DSCF2088" },
+      { src: "/images/gallery/New York/DSCF2090.avif", alt: "New York — DSCF2090" },
+      { src: "/images/gallery/New York/DSCF2092.avif", alt: "New York — DSCF2092" },
+      { src: "/images/gallery/New York/DSCF2095.avif", alt: "New York — DSCF2095" },
+      { src: "/images/gallery/New York/DSCF2145.avif", alt: "New York — DSCF2145" },
+    ],
+  },
+  {
+    location: "Ohio",
+    images: [
+      { src: "/images/gallery/Ohio/DSCF3254.avif", alt: "Ohio — DSCF3254" },
+      { src: "/images/gallery/Ohio/DSCF3262.avif", alt: "Ohio — DSCF3262" },
+      { src: "/images/gallery/Ohio/DSCF3263.avif", alt: "Ohio — DSCF3263" },
+      { src: "/images/gallery/Ohio/DSCF3273.avif", alt: "Ohio — DSCF3273" },
+      { src: "/images/gallery/Ohio/DSCF3344.avif", alt: "Ohio — DSCF3344" },
+    ],
+  },
+  {
+    location: "Tennesse",
+    images: [
+      { src: "/images/gallery/Tennesse/DSCF4596.avif", alt: "Tennesse — DSCF4596" },
+      { src: "/images/gallery/Tennesse/DSCF4725.avif", alt: "Tennesse — DSCF4725" },
+      { src: "/images/gallery/Tennesse/DSCF4775.avif", alt: "Tennesse — DSCF4775" },
+      { src: "/images/gallery/Tennesse/DSCF4817.avif", alt: "Tennesse — DSCF4817" },
+      { src: "/images/gallery/Tennesse/DSCF4910.avif", alt: "Tennesse — DSCF4910" },
+      { src: "/images/gallery/Tennesse/DSCF4943.avif", alt: "Tennesse — DSCF4943" },
+      { src: "/images/gallery/Tennesse/DSCF4959.avif", alt: "Tennesse — DSCF4959" },
+      { src: "/images/gallery/Tennesse/DSCF4975.avif", alt: "Tennesse — DSCF4975" },
+      { src: "/images/gallery/Tennesse/DSCF4983.avif", alt: "Tennesse — DSCF4983" },
+      { src: "/images/gallery/Tennesse/DSCF4986.avif", alt: "Tennesse — DSCF4986" },
+      { src: "/images/gallery/Tennesse/DSCF4988.avif", alt: "Tennesse — DSCF4988" },
+    ],
+  },
+  {
+    location: "Wisconsin",
+    images: [
+      { src: "/images/gallery/Wisconsin/DSCF5098.avif", alt: "Wisconsin — DSCF5098" },
+      { src: "/images/gallery/Wisconsin/DSCF0842.avif", alt: "Wisconsin — DSCF0842" },
+      { src: "/images/gallery/Wisconsin/DSCF5061.avif", alt: "Wisconsin — DSCF5061" },
+    ],
+  },
+]
+
 };
 
 export {

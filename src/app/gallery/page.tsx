@@ -1,4 +1,4 @@
-import { Flex, Meta, Schema, RevealFx } from "@once-ui-system/core";
+import { Column, Flex, Meta, Schema, RevealFx } from "@once-ui-system/core";
 import GalleryView from "@/components/gallery/GalleryView";
 import { baseURL, gallery, person } from "@/resources";
 
@@ -6,7 +6,7 @@ export async function generateMetadata() {
   return Meta.generate({
     title: gallery.title,
     description: gallery.description,
-    baseURL: baseURL,
+    baseURL,
     image: `/api/og/generate?title=${encodeURIComponent(gallery.title)}`,
     path: gallery.path,
   });
@@ -14,7 +14,7 @@ export async function generateMetadata() {
 
 export default function Gallery() {
   return (
-    <Flex maxWidth="l">
+    <Flex maxWidth="l" paddingTop="48" paddingBottom="l">
       <Schema
         as="webPage"
         baseURL={baseURL}
@@ -29,7 +29,9 @@ export default function Gallery() {
         }}
       />
       <RevealFx translateY="8" fillWidth horizontal="center">
-        <GalleryView />
+        <Column fillWidth gap="16">
+          <GalleryView />
+        </Column>
       </RevealFx>
     </Flex>
   );

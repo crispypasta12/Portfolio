@@ -103,13 +103,13 @@ export interface Home extends BasePageConfig {
     }>;
   };
 
-  /** Testimonials (optional; keep off if empty) */
+  /** Testimonials */
   testimonials?: {
     display: boolean;
     items: Array<{ quote: string; author: string; role?: string }>;
   };
 
-  /** Hobbies & Life (optional; keep off if not needed) */
+  /** Hobbies & Life */
   hobbies?: { display: boolean; items: string[] };
 
   /** Contact CTA */
@@ -136,7 +136,6 @@ export interface About extends BasePageConfig {
       company: string;
       timeframe: string;
       role: string;
-      /** NEW: optional logo path (e.g., '/images/about/work_milwaukee.webp') */
       logo?: string;
       achievements: React.ReactNode[];
       images?: Array<{
@@ -178,5 +177,13 @@ export interface About extends BasePageConfig {
 export interface Blog extends BasePageConfig {}
 export interface Work extends BasePageConfig {}
 export interface Gallery extends BasePageConfig {
-  images: Array<{ src: string; alt: string; orientation: string }>;
+  groups: Array<{
+    location: string;
+    images: Array<{
+      src: string;     
+      full?: string;           
+      alt: string;
+      orientation?: "horizontal" | "vertical" | "square";
+    }>;
+  }>;
 }
