@@ -1,0 +1,130 @@
+.wrap {
+  width: 100%;
+}
+
+.controls {
+  width: 100%;
+  align-items: center;
+}
+
+/* Search box */
+.searchBox {
+  position: relative;
+  min-width: 220px;
+
+  input[type="search"] {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid var(--neutral-alpha-medium);
+    background: color-mix(in oklab, var(--page-background) 90%, transparent);
+    color: var(--neutral-on-background-strong);
+    outline: none;
+    transition: border-color var(--transition-micro-medium), box-shadow var(--transition-micro-medium);
+
+    &::placeholder {
+      color: var(--neutral-on-background-weak);
+      opacity: .8;
+    }
+
+    &:focus {
+      border-color: var(--brand-alpha-strong);
+      box-shadow: 0 0 0 3px color-mix(in oklab, var(--brand-background-strong) 25%, transparent);
+    }
+  }
+}
+
+/* filter chips */
+.filterChip {
+  cursor: pointer;
+  user-select: none;
+  transition: transform var(--transition-micro-medium), background var(--transition-micro-medium);
+
+  &:hover { transform: translateY(-1px); }
+}
+
+.activeChip :global(*) {
+  background: var(--brand-background-weak) !important;
+  color: var(--brand-on-background-weak) !important;
+}
+
+.softDivider {
+  height: 1px;
+  width: 100%;
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--neutral-on-background-weak) 12%, transparent),
+      color-mix(in oklab, var(--neutral-on-background-weak) 24%, transparent) 12%,
+      color-mix(in oklab, var(--neutral-on-background-weak) 12%, transparent) 100%
+    );
+  opacity: .9;
+  border-radius: 999px;
+  margin: 4px 0 8px;
+}
+
+/* Small-screen polish */
+@media (max-width: 640px) {
+  .searchBox { min-width: 100%; }
+}
+
+/* Thumbs – use pointer (click) cursor */
+.thumb {
+  cursor: pointer;
+  transition: transform 160ms ease;
+  &:hover { transform: translateY(-2px); }
+}
+
+/* Lightbox (portal target) */
+.lightboxBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: color-mix(in oklab, black 70%, transparent);
+  backdrop-filter: blur(2px);
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  animation: fadeIn 140ms ease-out;
+}
+
+.lightboxInner {
+  position: relative;           
+  width: min(92vw, 1400px);
+  height: min(92vh, 92vw);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,.5), 0 0 0 1px var(--neutral-alpha-medium);
+  background: var(--page-background);
+  cursor: pointer;            
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(.98); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.controlsRow {
+  display: flex;
+  align-items: center;    
+}
+
+.filterLabel {
+  display: inline-flex;
+  align-items: center;     
+  font-weight: 600;       
+  font-size: 0.95rem;       
+  line-height: 1;           
+  margin-right: 10px;      
+  color: var(--neutral-on-background-strong);
+}
+
+@media (max-width: 640px) {
+  .controlsRow {
+    justify-content: center; 
+    text-align: center;
+  }
+  .filterLabel {
+    margin-right: 12px;     
+  }
+}

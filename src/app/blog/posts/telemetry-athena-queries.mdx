@@ -1,0 +1,18 @@
+---
+title: "Fleet telemetry that pays for itself: structure first, visuals later"
+publishedAt: "2024-05-18"
+summary: "Signed uploads, JSON lines with a device_id, and a few Athena queries to start finding signal."
+tag: "Observability"
+image: "/images/blogs/blog2.webp"
+---
+
+Store **JSONL** with a stable `device_id`, `fw`, and `ts`. Then:
+
+```sql
+-- Example Athena sketch
+SELECT device_id, COUNT(*) AS events
+FROM iot_logs
+WHERE date BETWEEN date '2024-05-01' AND date '2024-05-31'
+GROUP BY device_id
+ORDER BY events DESC
+LIMIT 50;

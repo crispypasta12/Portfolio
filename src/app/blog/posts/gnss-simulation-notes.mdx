@@ -1,0 +1,13 @@
+---
+title: "GNSS simulation for repeatable tests: cold, warm, hot starts"
+publishedAt: "2024-06-14"
+summary: "Use a simulator to control sky view and motion profiles; log TTFF across builds."
+tag: "Validation"
+image: "/images/blogs/blog3.webp"
+---
+
+TTFF charts get noisy without control. Use profiles:
+
+- **Static rooftop**, **drive loop**, **urban canyon**.
+- Alternate almanac ages to test aiding paths.
+- Log NMEA + supply current so you can correlate lock vs power spikes.

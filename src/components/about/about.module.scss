@@ -1,0 +1,177 @@
+@use "../breakpoints.scss" as breakpoints;
+
+.hover {
+  transition: var(--transition-micro-medium);
+  &:hover {
+    transform: translateX(var(--static-space-4));
+  }
+}
+
+.pageRow {
+  align-items: flex-start;
+}
+
+.avatar {
+  position: sticky;
+  height: fit-content;
+  top: var(--static-space-64);
+}
+
+.section {
+  margin-block: clamp(20px, 4vw, 40px);
+}
+
+.heroCard {
+  border-radius: 16px;
+  padding: 14px;
+  background: var(--glass-soft);
+  box-shadow: var(--ring);
+  backdrop-filter: blur(6px) saturate(1.05);
+}
+
+.card {
+  border-radius: 16px;
+  padding: clamp(16px, 2.2vw, 20px);
+  background: var(--glass-soft);
+  box-shadow: var(--ring);
+  backdrop-filter: blur(6px) saturate(1.05);
+  transition: transform 140ms ease;
+}
+
+.mediaFrame {
+  background: var(--glass);
+  box-shadow: var(--ring);
+}
+
+.skillRow {
+  align-items: center;
+}
+.skillTag {
+  display: inline-flex;
+  & > * {
+    transition: transform 160ms ease, filter 160ms ease, background 160ms ease,
+      color 160ms ease;
+    outline: none;
+  }
+  &:hover > * {
+    background: #fff !important;
+    color: #000 !important;
+    filter: invert(0) grayscale(0);
+    transform: translateY(-1px);
+  }
+}
+
+.softDivider {
+  height: 1px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  opacity: 0.8;
+}
+
+.titleFxWrap {
+  --reveal: 0;
+  text-align: left;
+}
+.titleFx {
+  background: linear-gradient(
+    90deg,
+    var(--neutral-on-background-strong) 0%,
+    var(--neutral-on-background-strong) calc(var(--reveal) * 100%),
+    var(--neutral-on-background-weak) calc(var(--reveal) * 100% + 0.1%),
+    var(--neutral-on-background-weak) 100%
+  );
+  font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin: 0;
+}
+.subtle {
+  margin-top: 6px;
+  opacity: 0.75;
+  text-align: left;
+}
+
+.glow {
+  position: relative;
+}
+.glow::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    120px 120px at var(--mx, -100px) var(--my, -100px),
+    rgba(0, 170, 255, 0.1),
+    rgba(0, 170, 255, 0.05) 35%,
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+.glow:hover::before {
+  opacity: 0.9;
+}
+.glow:hover {
+  transform: translateY(-2px);
+}
+
+@media (max-width: breakpoints.$s) {
+  .avatar {
+    top: auto;
+  }
+  .textAlign {
+    text-align: center;
+  }
+  .blockAlign {
+    align-self: center;
+  }
+}
+
+.avatarBox {
+  inline-size: 160px; 
+  aspect-ratio: 1 / 1; 
+  border-radius: 16px;
+  overflow: hidden;
+}
+.avatarBox :global(img) {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+.logoBox {
+  inline-size: 60px;                
+  block-size: 36px;                 
+  display: grid; place-items: center;
+  overflow: hidden;
+}
+.logoBox :global(img) {
+  inline-size: 100%; block-size: 100%;
+  object-fit: contain;              
+}
+
+.logoBoxSquare {
+  inline-size: 60px;                 
+  aspect-ratio: 1 / 1;               
+  display: grid; place-items: center;
+  overflow: hidden;
+}
+.logoBoxSquare :global(img) {
+  inline-size: 100%; block-size: 100%;
+  object-fit: contain;             
+}
+
+.avatarImg {
+  width: 160px;
+  height: auto;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.orgLogo {
+  width: 60px;
+  height: auto;
+  overflow: hidden;
+}

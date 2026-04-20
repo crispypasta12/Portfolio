@@ -1,0 +1,16 @@
+---
+title: "BLE provisioning that scales: bonding, keys and 'paperclip' resets"
+publishedAt: "2024-03-10"
+summary: "Patterns for onboarding devices over BLE without painting yourself into a corner."
+tag: "Connectivity"
+image: "/images/blogs/blog7.webp"
+---
+
+Key ideas:
+
+- **Ephemeral session key** from ECDH; elevate only after server confirms claim.
+- **Out-of-band hint** (QR or short code) to bind app ↔ device.
+- **Paperclip reset** clears the *cloud* binding, not just bonds.
+- **Log the claim** with a fleet-wide correlation ID.
+
+I prefer a flat protocol—`OP, TLV`—and versioned characteristics, vended under a single primary service.

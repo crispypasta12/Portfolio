@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(node scripts/compress-gallery.mjs)",
+      "Bash(node -e \"const m = require\\('D:/Repo/portfolio/node_modules/@once-ui-system/core/dist/index.js'\\); console.log\\(Object.keys\\(m\\).filter\\(k => /input|form|field|password/i.test\\(k\\)\\).join\\(', '\\)\\)\")",
+      "Bash(npx tsc *)",
+      "Bash(npm run *)"
+    ]
+  }
+}

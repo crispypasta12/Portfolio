@@ -1,0 +1,128 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--static-space-16);
+
+  @media (max-width: 960px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.scholarTop {
+  opacity: 0.9;
+}
+
+.softDivider {
+  height: 1px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  margin: 16px 0;
+  border-radius: 999px;
+  opacity: 0.9;
+}
+
+.card {
+  position: relative;
+  padding: var(--static-space-20);
+  border-radius: var(--radius-l);
+  background: color-mix(in oklab, var(--page-background) 82%, transparent);
+  border: 1px solid var(--neutral-alpha-medium);
+  transition:
+    transform var(--transition-micro-medium),
+    box-shadow var(--transition-micro-medium),
+    border-color var(--transition-micro-medium),
+    background var(--transition-micro-medium);
+  box-shadow: 0 0 0 0 transparent;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: var(--brand-alpha-strong);
+  }
+}
+
+.processCard {
+  padding: var(--static-space-24); 
+  min-height: 180px;      
+}
+
+.tilt:hover {
+  transform: translateY(-4px) rotate3d(0.2, -0.15, 0, 2deg);
+}
+
+.glass {
+  background:
+    radial-gradient(1200px 500px at 10% 120%, color-mix(in oklab, var(--brand-background-strong) 12%, transparent), transparent 60%),
+    linear-gradient(180deg, color-mix(in oklab, var(--neutral-background-strong) 10%, transparent), transparent);
+}
+
+.iconWrap {
+  --size: 48px;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 35% 30%, var(--brand-alpha-medium), transparent 60%);
+  border: 1px solid var(--neutral-alpha-medium);
+  position: relative;
+  overflow: visible;
+  isolation: isolate;
+}
+
+.stepIndex {
+  position: absolute;
+  right: -8px;
+  bottom: -8px;
+  font-size: 12px;
+  height: 22px;
+  width: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  z-index: 1;
+  color: var(--brand-on-background-strong);
+  background: var(--brand-background-strong);
+  border: 1px solid var(--brand-alpha-strong);
+  box-shadow: 0 0 0 2px var(--page-background);
+}
+
+/* Publications */
+.pubCard {
+  &:hover {
+    background:
+      radial-gradient(800px 400px at 15% 120%, color-mix(in oklab, var(--brand-background-strong) 18%, transparent), transparent 60%),
+      linear-gradient(180deg, color-mix(in oklab, var(--neutral-background-strong) 12%, transparent), transparent);
+    border-color: var(--brand-alpha-strong);
+  }
+
+  &:hover .pubTitle,
+  &:hover .pubRead,
+  &:hover .scholarLink {
+    color: var(--brand-strong);
+  }
+}
+
+.pubTitle {
+  transition: color var(--transition-micro-medium);
+}
+
+.pubMeta {
+  transition: color var(--transition-micro-medium);
+}
+
+.citeRow {
+  opacity: 0.95;
+}
+
+.pubRead,
+.scholarLink {
+  text-decoration: none;
+  font-weight: 600;
+  transition: color var(--transition-micro-medium), transform var(--transition-micro-medium);
+  color: var(--brand-on-background-weak);
+
+  &:hover {
+    transform: translateX(2px);
+  }
+}

@@ -1,0 +1,47 @@
+---
+title: "Memory Map NLP — Firmware Binary Analysis"
+publishedAt: "2022-05-15"
+summary: "NLP-inspired feature extraction on firmware memory maps for malware classification using deep transfer learning."
+images:
+  - "/images/projects/project1.jpg"
+team:
+  - name: "Syed Raqueed Bin Alvee"
+    role: "Research / ML"
+    avatar: "/images/avatar.webp"
+---
+
+## Overview
+
+Developed an NLP-inspired pipeline to classify firmware binaries by treating memory map sections
+(`.text`, `.data`, `.bss`, interrupt vectors) as structured sequences — analogous to token streams.
+Features extracted from disassembly and symbol tables were fed into a **deep transfer learning** model
+to distinguish benign firmware from malware variants targeting smart inverters.
+
+### Motivation
+
+Traditional signature-based AV tools fail on embedded firmware: binaries are stripped, architectures
+vary (ARM Cortex-M, RISC), and execution environments are bare-metal. Treating opcode sequences as
+"language" and memory layout as "document structure" allowed reuse of NLP classification techniques
+on a domain where labelled data is scarce.
+
+### Approach
+
+- **Corpus**: Labelled firmware samples (benign / ransomware / APT-style) collected from HIL testbed
+- **Tokenisation**: Disassembly → normalised mnemonic n-grams; memory map sections as positional features
+- **Model**: Pre-trained CNN text-classifier fine-tuned with transfer learning (PyTorch)
+- **Evaluation**: 10-fold cross-validation; precision / recall / F1 across malware families
+
+### Highlights
+
+- Built a reproducible pre-processing pipeline (Python · spaCy · scikit-learn) for raw ELF binaries
+- Transfer learning from a text-domain model reduced labelled-sample requirement by ~60%
+- Evaluated against APT-style and ransomware payloads modelled in the TAMUK cyber-physical testbed
+
+### Tech
+
+Python · PyTorch · spaCy · scikit-learn · TensorFlow · MATLAB
+
+### Outcome
+
+Results contributed to the IEEE DMC 2022 paper on device-centric firmware malware detection for
+smart inverters, achieving high classification accuracy with limited ground-truth samples.
